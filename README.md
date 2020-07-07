@@ -6,11 +6,11 @@
 
 <p>The parameters are given in **parameters.py**, which allows to change the values of the optical elements. The Twiss parameter "gamma" is calculated in **gamma.py**.</p>
 
-$
+$$
 \gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
 \tag{1}
 \label{1}
-$
+$$
 
 <p>The "trash cleanup" part allows to remove (or not) files that have been in the trash for more than 1 week. But you can change this value with the corresponding macro. Explanations here: <a href="https://linuxhandbook.com/date-command/" title="commande date">https://linuxhandbook.com/date-command/</a>
 
