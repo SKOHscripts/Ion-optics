@@ -12,3 +12,8 @@ Finally, the ellipses are displayed thanks to the code coming from <a href="http
 
 In order to visualize them, you just have to compile the file **confidence_ellipse.py**. You can modify the ellipses to display by copying the sigma matrix code from the **sigmaMatrices.py** file in this viewing program.
 
+$$
+f(a)={\frac {1}{2\pi i}}\oint _{\gamma }{\frac {f(z)}{z-a}}\,dz
+\tag{1}
+\label{1}
+$$
