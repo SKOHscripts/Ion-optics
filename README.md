@@ -8,7 +8,7 @@ The parameters are given in **parameters.py**, which allows to change the values
 
 <p>All sigma matrices have been calculated beforehand according to the transfer matrix of the different optical elements used. They are recorded in **sigmaMatrices.py**.</p>
 
-Finally, the ellipses are displayed thanks to the code coming from <a href="https://matplotlib.org/3.1.0/gallery/statistics/confidence_ellipse.html" title="this website">this website/</a>, from which I took inspiration. 
+Finally, the ellipses are displayed thanks to the code coming from <a href="https://matplotlib.org/3.1.0/gallery/statistics/confidence_ellipse.html" title="this website">this website</a>, from which I took inspiration. 
 
 In order to visualize them, you just have to compile the file **confidence_ellipse.py**. You can modify the ellipses to display by copying the sigma matrix code from the **sigmaMatrices.py** file in this viewing program.
 
