@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 import matplotlib.transforms as transforms
 
-import matricesSigma
-import calcul_gamma
+import sigmaMatrices
+import gamma
 import parameters
 
 ###############################################################################
 #
-# Code inspiré de:
+# Inspired from:
 #
 # https://matplotlib.org/3.1.0/gallery/statistics/confidence_ellipse.html
 
@@ -107,7 +107,7 @@ def get_correlated_dataset(n, dependency, mu, scale):
 
 ###############################################################################
 #
-# Visualisation de faisceaux en sortie de différents éléments d'optique à partir des matrices "sigma" calculées.
+# Visualization of output beams of different optical elements from calculated "sigma" matrices.
 #
 
 np.random.seed(0)
@@ -115,15 +115,15 @@ np.random.seed(0)
 PARAMETERS = {
     'Nothing': np.array([[1, 0], [0, 1]]),
 
-    'Lens': matricesSigma.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
+    'Lens': sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
 
-    'Drift': matricesSigma.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
+    'Drift': sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
 
-    'Lens + Drift': matricesSigma.LensDrift(parameters.LensDrift_f, parameters.LensDrift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
+    'Lens + Drift': sigmaMatrices.LensDrift(parameters.LensDrift_f, parameters.LensDrift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
 
-    'Magetic dipole': matricesSigma.DipoleMag(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+    'Magetic dipole': sigmaMatrices.DipoleMag(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
 
-    'Einzel lens': matricesSigma.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
+    'Einzel lens': sigmaMatrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
 }
 
 mu = 0, 0
@@ -156,8 +156,7 @@ plt.show()
 
 fig, ax_nstd = plt.subplots(figsize=(6, 6))
 
-dependency_nstd = matricesSigma.Lens(
-    520, 1.4, 2.3, calcul_gamma.gamma(1.4, 2.3, 30), 30)
+dependency_nstd = sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon)
 
 mu = 0, 0
 scale = 10, 10
@@ -191,8 +190,7 @@ plt.show()
 # to have the ellipse rendered in different ways.
 
 fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-dependency_kwargs = matricesSigma.Lens(
-    520, 1.4, 2.3, calcul_gamma.gamma(1.4, 2.3, 30), 30)
+dependency_kwargs = sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon)
 
 mu = 0, 0
 scale = 10, 10
