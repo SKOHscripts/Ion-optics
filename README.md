@@ -6,15 +6,9 @@
 
 <p>The parameters are given in **parameters.py**, which allows to change the values of the optical elements. The Twiss parameter "gamma" is calculated in **gamma.py**.</p>
 
-$$
-\gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
-\tag{1}
-\label{1}
-$$
+<p>All sigma matrices have been calculated beforehand according to the transfer matrix of the different optical elements used. They are recorded in **sigmaMatrices.py**.</p>
 
-<p>The "trash cleanup" part allows to remove (or not) files that have been in the trash for more than 1 week. But you can change this value with the corresponding macro. Explanations here: <a href="https://linuxhandbook.com/date-command/" title="commande date">https://linuxhandbook.com/date-command/</a>
+<p>Finally, the ellipses are displayed thanks to the code coming from <a href="https://matplotlib.org/3.1.0/gallery/statistics/confidence_ellipse.html" title="this website">https://linuxhandbook.com/date-command/</a>, from which I took inspiration. </p>
 
-To launch the script, don't forget to allow the execution : <br/> chmod +x ./maintenance.sh
-
-Then go into the folder and execute the script : <br/> ./maintenance.sh
+<p>In order to visualize them, you just have to compile the file **confidence_ellipse.py**. You can modify the ellipses to display by copying the sigma matrix code from the **sigmaMatrices.py** file in this viewing program.</p>
 
