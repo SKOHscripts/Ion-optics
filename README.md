@@ -1,3 +1,5 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 # Ion optics
 
 ### Optimization of Twiss parameters to influence the emissivity of an ion beam
@@ -7,7 +9,7 @@
 <p>The parameters are given in **parameters.py**, which allows to change the values of the optical elements. The Twiss parameter "gamma" is calculated in **gamma.py**.</p>
 
 $$
-gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
+\gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
 \tag{1}
 \label{1}
 $$
