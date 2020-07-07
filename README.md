@@ -7,7 +7,7 @@
 <p>The parameters are given in **parameters.py**, which allows to change the values of the optical elements. The Twiss parameter "gamma" is calculated in **gamma.py**.</p>
 
 $$
-\gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
+gamma={\frac {\epsilon^2+\alpha^2 \epsilon^2}{\beta \epsilon^2}}
 \tag{1}
 \label{1}
 $$
