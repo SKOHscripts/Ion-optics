@@ -1,9 +1,10 @@
 import gamma
+import math
 
 epsilon = 30  # Input emittance for the ion beam.
-n_std = 3  # n_std : float 	The number of standard deviations to determine the ellipse's radiuses.
+n_std = 2  # n_std : float 	The number of standard deviations to determine the ellipse's radiuses.
 mu = 0, 0  # Two_dimensional mean (we take 0,0 by default, because that means that the beam is in average in the center of the ion gun).
-scale = 10, 10  # Dimension we give to the beam.
+scale = 1, 1  # Dimension we give to the beam.
 
 #############################################################################
 #
