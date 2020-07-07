@@ -29,7 +29,7 @@ import parameters
 # like in these examples).
 
 
-def confidence_ellipse(x, y, ax, n_std=3, facecolor='none', **kwargs):
+def confidence_ellipse(x, y, ax, n_std=parameters.n_std, facecolor='none', **kwargs):
     """
     Create a plot of the covariance confidence ellipse of `x` and `y`
 
@@ -112,26 +112,63 @@ def get_correlated_dataset(n, dependency, mu, scale):
 
 np.random.seed(0)
 
-PARAMETERS = {
+PARAMETERS1 = {
+
     'Nothing': np.array([[1, 0], [0, 1]]),
 
     'Lens': sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
 
     'Drift': sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
+}
+
+
+PARAMETERS2 = {
 
     'Lens + Drift': sigmaMatrices.LensDrift(parameters.LensDrift_f, parameters.LensDrift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
 
-    'Magetic dipole': sigmaMatrices.DipoleMag(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+    'Magnetic dipole for x plan': sigmaMatrices.DipoleMag_x(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+
+    'Magnetic dipole for y plan': sigmaMatrices.DipoleMag_y(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+}
+
+PARAMETERS3 = {
 
     'Einzel lens': sigmaMatrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
 }
 
-mu = 0, 0
-scale = 10, 10
+mu = parameters.mu
+scale = parameters.scale
 
+fig, axs = plt.subplots(1, 3, figsize=(6, 6))
+for ax, (title, dependency) in zip(axs, PARAMETERS1.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-fig, axs = plt.subplots(1, 6, figsize=(18, 6))
-for ax, (title, dependency) in zip(axs, PARAMETERS.items()):
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
+
+    confidence_ellipse(x, y, ax, edgecolor='red')
+
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.axis('equal')
+
+fig, axs = plt.subplots(1, 3, figsize=(6, 6))
+for ax, (title, dependency) in zip(axs, PARAMETERS2.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
+
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
+
+    confidence_ellipse(x, y, ax, edgecolor='red')
+
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.axis('equal')
+
+fig, axs = plt.subplots(1, 2, figsize=(6, 6))
+for ax, (title, dependency) in zip(axs, PARAMETERS3.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
@@ -154,12 +191,13 @@ plt.show()
 #
 # A plot with n_std = 3 (blue), 2 (purple) and 1 (red)
 
+
 fig, ax_nstd = plt.subplots(figsize=(6, 6))
 
 dependency_nstd = sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon)
 
-mu = 0, 0
-scale = 10, 10
+mu = parameters.mu
+scale = parameters.scale
 
 ax_nstd.axvline(c='grey', lw=1)
 ax_nstd.axhline(c='grey', lw=1)
@@ -169,11 +207,11 @@ x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale)
 ax_nstd.scatter(x, y, s=0.5)
 
 confidence_ellipse(x, y, ax_nstd, n_std=1,
-                   label=r'$1\sigma$', edgecolor='firebrick')
+                   label=r'$1\sigma=(\beta*\epsilon)^{0.5}$', edgecolor='firebrick')
 confidence_ellipse(x, y, ax_nstd, n_std=2,
-                   label=r'$2\sigma$', edgecolor='fuchsia', linestyle='--')
+                   label=r'$2\sigma=2(\beta*\epsilon)^{0.5}$', edgecolor='fuchsia', linestyle='--')
 confidence_ellipse(x, y, ax_nstd, n_std=3,
-                   label=r'$3\sigma$', edgecolor='blue', linestyle=':')
+                   label=r'$3\sigma=3(\beta*\epsilon)^{0.5}$', edgecolor='blue', linestyle=':')
 
 ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
 ax_nstd.set_title('Different standard deviations for a thin lens')
@@ -189,11 +227,13 @@ plt.show()
 # Use the kwargs specified for matplotlib.patches.Patch in order
 # to have the ellipse rendered in different ways.
 
+
+'''
 fig, ax_kwargs = plt.subplots(figsize=(6, 6))
 dependency_kwargs = sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon)
 
-mu = 0, 0
-scale = 10, 10
+mu = parameters.mu
+scale = parameters.scale
 
 ax_kwargs.axvline(c='grey', lw=1)
 ax_kwargs.axhline(c='grey', lw=1)
@@ -211,3 +251,4 @@ ax.axis('equal')
 
 fig.subplots_adjust(hspace=0.25)
 plt.show()
+'''

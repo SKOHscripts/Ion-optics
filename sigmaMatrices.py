@@ -13,11 +13,11 @@ import parameters
 
 
 def Drift(L, a, b, g, eps):
-    sigma = np.array([[b - 2 * L * a + L**2 * g + 2 * L * (-a + L**2 * g), -a + L * g],
+    sigma = np.array([[b - 2 * L * a + 2 * L**2 * g + 2 * L * (-a + L**2 * g), L * g - a + L * g],
                       [-a + L * g + L * g, g]])
     T = np.array([[1, L], [0, 1]])
     Ttr = T.transpose()
-    return eps / math.pi * T.dot(sigma).dot(Ttr)
+    return T.dot(sigma).dot(Ttr)
 
 
 print("Drift: ", Drift(parameters.drift_L, parameters.drift_alpha,
@@ -65,11 +65,11 @@ print("Lens + Drift: ", LensDrift(parameters.LensDrift_f, parameters.LensDrift_L
 
 #############################################################################
 #
-# Magnetic dipole
+# Magnetic dipole for (x,x') plan
 #
 #
 # phi=angle du dipôle, p=longueur, a=alpha, b=beta, g=gamma, eps=epsilon
-def DipoleMag(phi, p, a, b, g, eps):
+def DipoleMag_x(phi, p, a, b, g, eps):
     T = np.array([[cos(phi), p * sin(phi)], [1 / p * sin(phi), cos(phi)]])
     Ttr = T.transpose()
     sigma = np.array(
@@ -79,8 +79,39 @@ def DipoleMag(phi, p, a, b, g, eps):
 
 
 print("")
-print("Magnetic dipole: ", DipoleMag(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha,
-                                     parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon))
+print("Magnetic dipole for x plan: ", DipoleMag_x(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon))
+
+#############################################################################
+#
+# Magnetic dipole for (y,y') plan
+#
+#
+# phi=angle du dipôle, p=longueur, a=alpha, b=beta, g=gamma, eps=epsilon
+
+
+def DipoleMag_y(phi, p, a, b, g, eps):
+    T = np.array([[1, p * phi], [0, 1]])
+
+    Ttr = T.transpose()
+
+    Twiss_in = np.array([[b],
+                         [a],
+                         [g]])  # Twiss_out = A * Twiss_in
+
+    A = np.array([[1, 2 * p * phi, p**2 * phi**2],
+                  [0, 1, p * phi],
+                  [0, 0, 1]])
+
+    Twiss_out = A.dot(Twiss_in)
+
+    sigma = np.hstack([[Twiss_out[0], -Twiss_out[1]],
+                       [Twiss_out[1], Twiss_out[2]]])
+
+    return eps / math.pi * T.dot(sigma).dot(Ttr)
+
+
+print("")
+print("Magnetic dipole for y plan: ", DipoleMag_y(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon))
 
 
 #############################################################################
@@ -91,7 +122,9 @@ print("Magnetic dipole: ", DipoleMag(parameters.dipoleMag_phi, parameters.dipole
 def Einzel(L1, f, L2, a, b, g, eps):
     T = np.array([[1 - L2 / f, L1 * (1 - L2 / f) + L2],
                   [-1 / f, -L1 / f + 1]])
+
     Ttr = T.transpose()
+
     Twiss_in = np.array([[b],
                          [a],
                          [g]])  # Twiss_out = A * Twiss_in
