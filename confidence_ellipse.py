@@ -154,7 +154,7 @@ DIPOLEMAG = {
 mu = parameters.mu
 scale = parameters.scale
 
-fig, axs = plt.subplots(1, 2, figsize=(6, 6))
+fig, axs = plt.subplots(1, 2, figsize=(18, 6))
 for ax, (title, dependency) in zip(axs, LENS.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -166,9 +166,11 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.axis('equal')
+    ax.set_aspect('equal')
+    ax.set_xlim((-100, 100))
+    ax.set_ylim((-50, 50))
 
-fig, axs = plt.subplots(1, 2, figsize=(6, 6))
+fig, axs = plt.subplots(1, 2, figsize=(18, 6))
 for ax, (title, dependency) in zip(axs, DRIFT.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -180,9 +182,11 @@ for ax, (title, dependency) in zip(axs, DRIFT.items()):
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.axis('equal')
+    ax.set_aspect('equal')
+    ax.set_xlim((-100, 100))
+    ax.set_ylim((-50, 50))
 
-fig, axs = plt.subplots(1, 2, figsize=(6, 6))
+fig, axs = plt.subplots(1, 2, figsize=(18, 6))
 for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -194,9 +198,11 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.axis('equal')
+    ax.set_aspect('equal')
+    ax.set_xlim((-100, 100))
+    ax.set_ylim((-50, 50))
 
-fig, axs = plt.subplots(1, 2, figsize=(6, 6))
+fig, axs = plt.subplots(1, 2, figsize=(18, 6))
 for ax, (title, dependency) in zip(axs, EINZEL.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -208,9 +214,11 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.axis('equal')
+    ax.set_aspect('equal')
+    ax.set_xlim((-100, 100))
+    ax.set_ylim((-50, 50))
 
-fig, axs = plt.subplots(1, 3, figsize=(6, 6))
+fig, axs = plt.subplots(1, 3, figsize=(18, 6))
 for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     x, y = get_correlated_dataset(2000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -222,7 +230,9 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.axis('equal')
+    ax.set_aspect('equal')
+    ax.set_xlim((-100, 100))
+    ax.set_ylim((-50, 50))
 
 plt.show()
 
@@ -232,32 +242,36 @@ plt.show()
 # Different number of standard deviations
 # """""""""""""""""""""""""""""""""""""""
 #
-# A plot with n_std = 3 (blue), 2 (purple) and 1 (red)
+#
 
 
 fig, ax_nstd = plt.subplots(figsize=(6, 6))
 
-dependency_nstd = sigmaMatrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon)
+dependency_nstd = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
 mu = parameters.mu
 scale = parameters.scale
 
 ax_nstd.axvline(c='grey', lw=1)
 ax_nstd.axhline(c='grey', lw=1)
-ax.axis('equal')
+ax_nstd.set_aspect('equal')
+# ax_nstd.set_xlim((-60, 60))
+# ax_nstd.set_ylim((-10, 10))
 
 x, y = get_correlated_dataset(3000, dependency_nstd, mu, scale)
 ax_nstd.scatter(x, y, s=0.5)
 
+# https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/
+
 confidence_ellipse(x, y, ax_nstd, n_std=1,
                    label=r'$1\sigma=(\beta*\epsilon)^{0.5}$', edgecolor='firebrick', linewidth=2)
-confidence_ellipse(x, y, ax_nstd, n_std=2,
+confidence_ellipse(x, y, ax_nstd, n_std=2.7055,
                    label=r'$2\sigma=2(\beta*\epsilon)^{0.5}$', edgecolor='firebrick', linestyle='--', linewidth=2)
-confidence_ellipse(x, y, ax_nstd, n_std=3,
-                   label=r'$3\sigma=3(\beta*\epsilon)^{0.5}$', edgecolor='firebrick', linestyle=':', linewidth=2)
+confidence_ellipse(x, y, ax_nstd, n_std=4,
+                   label=r'$95.5\%$', edgecolor='firebrick', linestyle=':', linewidth=2)
 
 ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
-ax_nstd.set_title('Different standard deviations for a thin lens')
+ax_nstd.set_title('Different standard deviations for a drift')
 ax_nstd.legend()
 plt.show()
 
@@ -272,7 +286,7 @@ plt.show()
 
 
 fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-dependency_kwargs = sigmaMatrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon)
+dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
 mu = parameters.mu
 scale = parameters.scale
@@ -289,7 +303,9 @@ confidence_ellipse(x, y, ax_kwargs,
 ax_kwargs.scatter(x, y, s=0.5)
 ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
 ax_kwargs.set_title(f'Thin lens')
-ax.axis('equal')
+ax_kwargs.set_aspect('equal')
+# ax_kwargs.set_xlim((-60, 60))
+# ax_kwargs.set_ylim((-10, 10))
 
 fig.subplots_adjust(hspace=0.25)
 plt.show()

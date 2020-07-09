@@ -11,7 +11,7 @@ scale = 1, 1  # Dimension we give to the beam.
 # Drift parameters
 #
 
-drift_L = 424
+drift_L = 0.424
 drift_alpha = 1.4
 drift_beta = 2.3
 drift_gamma = gamma.gamma(drift_alpha, drift_beta, epsilon)
@@ -21,7 +21,7 @@ drift_gamma = gamma.gamma(drift_alpha, drift_beta, epsilon)
 # Thin lens parameters
 #
 
-lens_f = 520
+lens_f = 0.520
 lens_alpha = 1.4
 lens_beta = 2.3
 lens_gamma = gamma.gamma(lens_alpha, lens_beta, epsilon)
@@ -42,8 +42,8 @@ LensDrift_gamma = gamma.gamma(LensDrift_alpha, LensDrift_beta, epsilon)
 # Magnetic dipole parameters
 #
 
-dipoleMag_phi = 45
-dipoleMag_p = 0.020
+dipoleMag_phi = 90
+dipoleMag_p = 0.0260
 dipoleMag_alpha = 1.4
 dipoleMag_beta = 2.3
 dipoleMag_gamma = gamma.gamma(dipoleMag_alpha, dipoleMag_beta, epsilon)
