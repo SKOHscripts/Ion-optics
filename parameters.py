@@ -1,4 +1,4 @@
-import gamma
+import parameters_calculation
 import math
 
 epsilon = 30  # Input emittance for the ion beam.
@@ -13,7 +13,7 @@ scale = 1, 1  # Dimension we give to the beam.
 
 input_alpha = 1.4
 input_beta = 2.3
-input_gamma = gamma.gamma(input_alpha, input_beta, epsilon)
+input_gamma = parameters_calculation.gamma(input_alpha, input_beta, epsilon)
 
 #############################################################################
 #
@@ -23,7 +23,7 @@ input_gamma = gamma.gamma(input_alpha, input_beta, epsilon)
 drift_L = 0.424
 drift_alpha = input_alpha
 drift_beta = input_beta
-drift_gamma = gamma.gamma(drift_alpha, drift_beta, epsilon)
+drift_gamma = parameters_calculation.gamma(drift_alpha, drift_beta, epsilon)
 
 #############################################################################
 #
@@ -33,7 +33,7 @@ drift_gamma = gamma.gamma(drift_alpha, drift_beta, epsilon)
 lens_f = 0.520
 lens_alpha = input_alpha
 lens_beta = input_beta
-lens_gamma = gamma.gamma(lens_alpha, lens_beta, epsilon)
+lens_gamma = parameters_calculation.gamma(lens_alpha, lens_beta, epsilon)
 
 #############################################################################
 #
@@ -44,7 +44,7 @@ LensDrift_f = 0.520
 LensDrift_L = 0.100
 LensDrift_alpha = input_alpha
 LensDrift_beta = input_beta
-LensDrift_gamma = gamma.gamma(LensDrift_alpha, LensDrift_beta, epsilon)
+LensDrift_gamma = parameters_calculation.gamma(LensDrift_alpha, LensDrift_beta, epsilon)
 
 #############################################################################
 #
@@ -55,7 +55,7 @@ dipoleMag_phi = 90
 dipoleMag_p = 0.0260
 dipoleMag_alpha = input_alpha
 dipoleMag_beta = input_beta
-dipoleMag_gamma = gamma.gamma(dipoleMag_alpha, dipoleMag_beta, epsilon)
+dipoleMag_gamma = parameters_calculation.gamma(dipoleMag_alpha, dipoleMag_beta, epsilon)
 
 #############################################################################
 #
@@ -67,7 +67,7 @@ einzel_f = 0.520
 einzel_L2 = 0.424
 einzel_alpha = input_alpha
 einzel_beta = input_beta
-einzel_gamma = gamma.gamma(einzel_alpha, einzel_beta, epsilon)
+einzel_gamma = parameters_calculation.gamma(einzel_alpha, einzel_beta, epsilon)
 
 #############################################################################
 #
@@ -80,8 +80,8 @@ quadru_L = 0.300
 quadru_drift_L = 0.500
 quadru_alpha = 0
 quadru_beta = input_beta
-quadru_gamma = gamma.gamma(quadru_alpha, quadru_beta, epsilon)
-quadru_k = math.sqrt(V0 / (2 * V * R**2))
+quadru_gamma = parameters_calculation.gamma(quadru_alpha, quadru_beta, epsilon)
+quadru_k = parameters_calculation.k(V0, V, R)
 print("k=", quadru_k)
 
 #############################################################################
@@ -98,5 +98,5 @@ doublet_L3 = 0.300
 doublet_L4 = 0.100
 doublet_alpha = input_alpha
 doublet_beta = input_beta
-doublet_gamma = gamma.gamma(doublet_alpha, doublet_beta, epsilon)
-doublet_k = math.sqrt(V0 / (2 * V * R**2))
+doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
+doublet_k = parameters_calculation.k(V0, V, R)
