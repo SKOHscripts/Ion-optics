@@ -5,7 +5,7 @@ from matplotlib.patches import Ellipse
 import matplotlib.transforms as transforms
 
 import sigmaMatrices
-import gamma
+import parameters_calculation
 import parameters
 
 ###############################################################################
@@ -98,7 +98,7 @@ def confidence_ellipse(x, y, ax, n_std=parameters.n_std, facecolor='none', **kwa
 # The correlation can be controlled by the param 'dependency',
 # a 2x2 matrix.
 
-def get_correlated_dataset(n, dependency, mu, scale):
+def get_correlated_dataset(n, dependency, mu, scale, **kwargs):
     latent = np.random.randn(n, 2)
     dependent = latent.dot(dependency)
     scaled = dependent * scale
@@ -195,19 +195,22 @@ scale = parameters.scale
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(2000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 
 fig, axs = plt.subplots(1, 3)
@@ -218,13 +221,16 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-15, 15))
     ax.set_ylim((-15, 15))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, EINZEL.items()):
@@ -234,13 +240,16 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
@@ -250,13 +259,16 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, LENS.items()):
@@ -266,29 +278,35 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, DRIFT.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(2000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
     ax.set_aspect('equal')
     ax.set_xlim((-15, 15))
     ax.set_ylim((-15, 15))
+    ax.set_xlabel('X/Y')
+    ax.set_ylabel("X'/Y'")
+    ax.legend()
 
 plt.show()
 
@@ -314,7 +332,7 @@ ax_nstd.set_aspect('equal')
 # ax_nstd.set_xlim((-60, 60))
 # ax_nstd.set_ylim((-10, 10))
 
-x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale)
+x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale, label='Dataset')
 ax_nstd.scatter(x, y, s=0.5)
 
 '''
@@ -325,14 +343,16 @@ chi^2 calculated from
 https://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
 '''
 confidence_ellipse(x, y, ax_nstd, n_std=2.2977,
-                   label=r'$68.3\%=\epsilon_{rms}$', edgecolor='firebrick', linewidth=2)
+                   label=r'$\epsilon_{rms}=68.3\%$', edgecolor='firebrick', linewidth=2)
 confidence_ellipse(x, y, ax_nstd, n_std=4.6051,
-                   label=r'$90\%=2.\epsilon_{rms}$', edgecolor='firebrick', linestyle='--', linewidth=2)
+                   label=r'$2.\epsilon_{rms}=90\%$', edgecolor='firebrick', linestyle='--', linewidth=2)
 confidence_ellipse(x, y, ax_nstd, n_std=6.2021,
-                   label=r'$95.5\%=4.\epsilon_{rms}$', edgecolor='firebrick', linestyle=':', linewidth=2)
+                   label=r'$4.\epsilon_{rms}=95.5\%$', edgecolor='firebrick', linestyle=':', linewidth=2)
 
 ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
 ax_nstd.set_title('Different standard deviations for a drift')
+ax_nstd.set_xlabel('X/Y')
+ax_nstd.set_ylabel("X'/Y'")
 ax_nstd.legend()
 plt.show()
 
@@ -346,27 +366,29 @@ plt.show()
 # to have the ellipse rendered in different ways.
 
 
-# fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-# dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+fig, ax_kwargs = plt.subplots(figsize=(6, 6))
+dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
-# mu = parameters.mu
-# scale = parameters.scale
+mu = parameters.mu
+scale = parameters.scale
 
-# ax_kwargs.axvline(c='grey', lw=1)
-# ax_kwargs.axhline(c='grey', lw=1)
+ax_kwargs.axvline(c='grey', lw=1)
+ax_kwargs.axhline(c='grey', lw=1)
 
-# x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
-# # Plot the ellipse with zorder=0 in order to demonstrate
-# # its transparency (caused by the use of alpha).
-# confidence_ellipse(x, y, ax_kwargs,
-#                    alpha=0.5, facecolor='pink', edgecolor='pink', zorder=0)
+x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
+# Plot the ellipse with zorder=0 in order to demonstrate
+# its transparency (caused by the use of alpha).
+confidence_ellipse(x, y, ax_kwargs,
+                   alpha=0.5, label=r'$4.\epsilon_{rms}=95.5\%$', facecolor='pink', edgecolor='pink', zorder=0)
 
-# ax_kwargs.scatter(x, y, s=0.5)
-# ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
-# ax_kwargs.set_title(f'Thin lens')
-# ax_kwargs.set_aspect('equal')
-# # ax_kwargs.set_xlim((-60, 60))
-# # ax_kwargs.set_ylim((-10, 10))
-
-# fig.subplots_adjust(hspace=0.25)
-# plt.show()
+ax_kwargs.scatter(x, y, s=0.5)
+ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
+ax_kwargs.set_title(f'Thin lens')
+ax_kwargs.set_aspect('equal')
+# ax_kwargs.set_xlim((-60, 60))
+# ax_kwargs.set_ylim((-10, 10))
+ax_kwargs.set_xlabel('X/Y')
+ax_kwargs.set_ylabel("X'/Y'")
+ax_kwargs.legend()
+fig.subplots_adjust(hspace=0.25)
+plt.show()

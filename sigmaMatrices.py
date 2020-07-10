@@ -2,7 +2,7 @@ from pylab import *
 import numpy as np
 from math import *
 
-import gamma
+import parameters_calculation
 import parameters
 
 #############################################################################
