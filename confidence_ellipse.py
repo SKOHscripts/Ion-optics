@@ -104,7 +104,7 @@ def get_correlated_dataset(n, dependency, mu, scale):
     scaled = dependent * scale
     scaled_with_offset = scaled + mu
     max_value = max(scaled_with_offset[:, 0] + scaled_with_offset[:, 1])
-    print(f"MAX={max_value}")
+    # print(f"MAX={max_value}")
     # return x and y of the new, correlated dataset
     return scaled_with_offset[:, 0], scaled_with_offset[:, 1]
 
@@ -179,21 +179,21 @@ mu = parameters.mu
 scale = parameters.scale
 
 
-fig, axs = plt.subplots(1, 3)
-for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# fig, axs = plt.subplots(1, 3)
+# for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
+#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, edgecolor='red')
+#     confidence_ellipse(x, y, ax, edgecolor='red')
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+#     ax.set_aspect('equal')
+#     ax.set_xlim((-30, 30))
+#     ax.set_ylim((-30, 30))
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):

@@ -179,7 +179,7 @@ print("Convergent electrostatic quadripole: \n", Quadri_conv(parameters.quadru_k
 
 def Quadri_div(k, L1, L2, a, b, g, eps):
     T = np.array([[cosh(sqrt(k) * L1), (1 / sqrt(k)) * sinh(sqrt(k) * L1)],
-                  [-sqrt(k) * sinh(sqrt(k) * L1), cosh(sqrt(k) * L1)]])
+                  [sqrt(k) * sinh(sqrt(k) * L1), cosh(sqrt(k) * L1)]])
 
     # print(f"T={T}")
     T = np.dot(Drift(L2, a, b, g, eps), T)

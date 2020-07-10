@@ -86,7 +86,7 @@ print("k=", quadru_k)
 
 #############################################################################
 #
-# Electrostatic quadrupole parameters
+# Doublet parameters
 #
 
 V0 = 1800
