@@ -71,11 +71,11 @@ def confidence_ellipse(x, y, ax, n_std=parameters.n_std, facecolor='none', **kwa
     # Calculating the stdandard deviation of x from
     # the squareroot of the variance and multiplying
     # with the given number of standard deviations.
-    scale_x = np.sqrt(cov[0, 0]) * n_std
+    scale_x = np.sqrt(cov[0, 0]) * np.sqrt(n_std)
     mean_x = np.mean(x)
 
     # calculating the stdandard deviation of y ...
-    scale_y = np.sqrt(cov[1, 1]) * n_std
+    scale_y = np.sqrt(cov[1, 1]) * np.sqrt(n_std)
     mean_y = np.mean(y)
 
     transf = transforms.Affine2D() \
@@ -103,8 +103,6 @@ def get_correlated_dataset(n, dependency, mu, scale):
     dependent = latent.dot(dependency)
     scaled = dependent * scale
     scaled_with_offset = scaled + mu
-    max_value = max(scaled_with_offset[:, 0] + scaled_with_offset[:, 1])
-    # print(f"MAX={max_value}")
     # return x and y of the new, correlated dataset
     return scaled_with_offset[:, 0], scaled_with_offset[:, 1]
 
@@ -276,21 +274,21 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
 #     ax.set_xlim((-30, 30))
 #     ax.set_ylim((-30, 30))
 
-# fig, axs = plt.subplots(1, 2)
-# for ax, (title, dependency) in zip(axs, DRIFT.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 2)
+for ax, (title, dependency) in zip(axs, DRIFT.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-15, 15))
-#     ax.set_ylim((-15, 15))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-15, 15))
+    ax.set_ylim((-15, 15))
 
 plt.show()
 
@@ -303,37 +301,40 @@ plt.show()
 #
 
 
-# fig, ax_nstd = plt.subplots(figsize=(6, 6))
+fig, ax_nstd = plt.subplots(figsize=(6, 6))
 
-# dependency_nstd = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+dependency_nstd = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
-# mu = parameters.mu
-# scale = parameters.scale
+mu = parameters.mu
+scale = parameters.scale
 
-# ax_nstd.axvline(c='grey', lw=1)
-# ax_nstd.axhline(c='grey', lw=1)
-# ax_nstd.set_aspect('equal')
-# # ax_nstd.set_xlim((-60, 60))
-# # ax_nstd.set_ylim((-10, 10))
+ax_nstd.axvline(c='grey', lw=1)
+ax_nstd.axhline(c='grey', lw=1)
+ax_nstd.set_aspect('equal')
+# ax_nstd.set_xlim((-60, 60))
+# ax_nstd.set_ylim((-10, 10))
 
-# x, y = get_correlated_dataset(3000, dependency_nstd, mu, scale)
-# ax_nstd.scatter(x, y, s=0.5)
+x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale)
+ax_nstd.scatter(x, y, s=0.5)
 
-# '''
-# https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/
-# '''
+'''
+https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/
+'''
+'''
+chi^2 calculated from 
+https://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
+'''
+confidence_ellipse(x, y, ax_nstd, n_std=2.2977,
+                   label=r'$68.3\%=\epsilon_{rms}$', edgecolor='firebrick', linewidth=2)
+confidence_ellipse(x, y, ax_nstd, n_std=4.6051,
+                   label=r'$90\%=2.\epsilon_{rms}$', edgecolor='firebrick', linestyle='--', linewidth=2)
+confidence_ellipse(x, y, ax_nstd, n_std=6.2021,
+                   label=r'$95.5\%=4.\epsilon_{rms}$', edgecolor='firebrick', linestyle=':', linewidth=2)
 
-# confidence_ellipse(x, y, ax_nstd, n_std=1,
-#                    label=r'$1\sigma=(\beta*\epsilon)^{0.5}$', edgecolor='firebrick', linewidth=2)
-# confidence_ellipse(x, y, ax_nstd, n_std=2.7055,
-#                    label=r'$2\sigma=2(\beta*\epsilon)^{0.5}$', edgecolor='firebrick', linestyle='--', linewidth=2)
-# confidence_ellipse(x, y, ax_nstd, n_std=4,
-#                    label=r'$95.5\%$', edgecolor='firebrick', linestyle=':', linewidth=2)
-
-# ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
-# ax_nstd.set_title('Different standard deviations for a drift')
-# ax_nstd.legend()
-# plt.show()
+ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
+ax_nstd.set_title('Different standard deviations for a drift')
+ax_nstd.legend()
+plt.show()
 
 
 ###############################################################################
