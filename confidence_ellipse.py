@@ -162,15 +162,15 @@ QUADRUPOLE = {
 
 }
 
-QUADRU_DOUBLET = {
+# QUADRU_DOUBLET = {
 
-    'Input signal': sigmaMatrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+#     'Input signal': sigmaMatrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-    'Doublet for x plan': sigmaMatrices.Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+#     'Doublet for x plan': sigmaMatrices.Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-    'Doublet for y plan': sigmaMatrices.Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+#     'Doublet for y plan': sigmaMatrices.Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-}
+# }
 
 
 mu = parameters.mu
@@ -210,69 +210,69 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
     ax.set_ylim((-30, 30))
 
 
-# fig, axs = plt.subplots(1, 3)
-# for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 3)
+for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-15, 15))
-#     ax.set_ylim((-15, 15))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-15, 15))
+    ax.set_ylim((-15, 15))
 
-# fig, axs = plt.subplots(1, 2)
-# for ax, (title, dependency) in zip(axs, EINZEL.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 2)
+for ax, (title, dependency) in zip(axs, EINZEL.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-30, 30))
-#     ax.set_ylim((-30, 30))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-30, 30))
+    ax.set_ylim((-30, 30))
 
-# fig, axs = plt.subplots(1, 2)
-# for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 2)
+for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-30, 30))
-#     ax.set_ylim((-30, 30))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-30, 30))
+    ax.set_ylim((-30, 30))
 
-# fig, axs = plt.subplots(1, 2)
-# for ax, (title, dependency) in zip(axs, LENS.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 2)
+for ax, (title, dependency) in zip(axs, LENS.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-30, 30))
-#     ax.set_ylim((-30, 30))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-30, 30))
+    ax.set_ylim((-30, 30))
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, DRIFT.items()):

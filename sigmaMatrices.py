@@ -35,9 +35,9 @@ def Drift(L, a, b, g, eps):
 
     sigma_in = np.array([[b, -a],
                          [-a, g]])
-    C = np.dot(T, sigma_in)
+    A = np.dot(T, sigma_in)
 
-    return np.dot(C, Ttr)
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -57,7 +57,9 @@ def Lens(f, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return np.dot(np.dot(T, sigma_in), Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -72,14 +74,15 @@ print("Lens: \n", Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens
 # f=focale de la lentille, L=longueur du drift, a=alpha, b=beta, g=gamma, eps=epsilon
 
 def LensDrift(f, L, a, b, g, eps):
-    T = np.array([[1 - L / f, L], [-1 / f, 1]])
+    T = np.array([[1 - (L / f), L], [-1 / f, 1]])
 
     Ttr = T.transpose()
 
     sigma_in = np.array([[b, -a],
                          [-a, g]])
+    A = np.dot(T, sigma_in)
 
-    return T.dot(sigma_in).dot(Ttr)
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -102,7 +105,9 @@ def DipoleMag_x(phi, p, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return np.dot(np.dot(T, sigma_in), Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -124,7 +129,9 @@ def DipoleMag_y(phi, p, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return np.dot(np.dot(T, sigma_in), Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -145,7 +152,9 @@ def Einzel(L1, f, L2, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return np.dot(np.dot(T, sigma_in), Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -170,7 +179,9 @@ def Quadri_conv(k, L1, L2, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return T.dot(sigma_in).dot(Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -189,7 +200,9 @@ def Quadri_div(k, L1, L2, a, b, g, eps):
     sigma_in = np.array([[b, -a],
                          [-a, g]])
 
-    return T.dot(sigma_in).dot(Ttr)
+    A = np.dot(T, sigma_in)
+
+    return np.dot(A, Ttr)
 
 
 print("")
@@ -207,47 +220,47 @@ else:
     QUADRU_X = Quadri_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
 
 
-def Quadru_doubletPM(k, L1, L2, L3, L4, a, b, g, eps):
-    T1 = QUADRU_X
-    T2 = QUADRU_Y
+# def Quadru_doubletPM(k, L1, L2, L3, L4, a, b, g, eps):
+#     T1 = QUADRU_X
+#     T2 = QUADRU_Y
 
-    # print(f"T={T}")
+#     # print(f"T={T}")
 
-    T = np.dot(T2, T1)
+#     T = np.dot(T2, T1)
 
-    print(f"T={T}")
+#     print(f"T={T}")
 
-    Ttr = T.transpose()
-    print(f"Ttr={Ttr}")
+#     Ttr = T.transpose()
+#     print(f"Ttr={Ttr}")
 
-    sigma_in = np.array([[b, -a],
-                         [-a, g]])
+#     sigma_in = np.array([[b, -a],
+#                          [-a, g]])
 
-    return T.dot(sigma_in).dot(Ttr)
-
-
-print("")
-print("Doublet of quadripoles : \n", Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+#     return T.dot(sigma_in).dot(Ttr)
 
 
-def Quadru_doubletMP(k, L1, L2, L3, L4, a, b, g, eps):
-    T1 = QUADRU_X
-    T2 = QUADRU_Y
-
-    # print(f"T={T}")
-
-    T = np.dot(T2, T1)
-
-    print(f"T={T}")
-
-    Ttr = T.transpose()
-    print(f"Ttr={Ttr}")
-
-    sigma_in = np.array([[b, -a],
-                         [-a, g]])
-
-    return T.dot(sigma_in).dot(Ttr)
+# print("")
+# print("Doublet of quadripoles : \n", Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
 
 
-print("")
-print("Doublet of quadripoles : \n", Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+# def Quadru_doubletMP(k, L1, L2, L3, L4, a, b, g, eps):
+#     T1 = QUADRU_X
+#     T2 = QUADRU_Y
+
+#     # print(f"T={T}")
+
+#     T = np.dot(T2, T1)
+
+#     print(f"T={T}")
+
+#     Ttr = T.transpose()
+#     print(f"Ttr={Ttr}")
+
+#     sigma_in = np.array([[b, -a],
+#                          [-a, g]])
+
+#     return T.dot(sigma_in).dot(Ttr)
+
+
+# print("")
+# print("Doublet of quadripoles : \n", Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
