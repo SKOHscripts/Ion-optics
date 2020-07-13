@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 import matplotlib.transforms as transforms
 
-import sigmaMatrices
+import sigma_matrices
 import parameters_calculation
 import parameters
 
@@ -116,82 +116,85 @@ np.random.seed(0)
 
 LENS = {
 
-    'Input signal': sigmaMatrices.Input(parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
 
-    'Lens': sigmaMatrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
+    'Lens': sigma_matrices.Lens(parameters.lens_f, parameters.lens_alpha, parameters.lens_beta, parameters.lens_gamma, parameters.epsilon),
 
 }
 
 DRIFT = {
 
-    'Input signal': sigmaMatrices.Input(parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
 
-    'Drift': sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
+    'Drift': sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon),
 }
 
 LENSDRIFT = {
 
-    'Input signal': sigmaMatrices.Input(parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
 
-    'Lens + drift': sigmaMatrices.LensDrift(parameters.LensDrift_f, parameters.LensDrift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
+    'Lens + drift': sigma_matrices.LensDrift(parameters.LensDrift_f, parameters.LensDrift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon),
 }
 
 EINZEL = {
 
-    'Input signal': sigmaMatrices.Input(parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
 
-    'Einzel lens': sigmaMatrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
+    'Einzel lens': sigma_matrices.Einzel(parameters.einzel_L1, parameters.einzel_f, parameters.einzel_L2, parameters.einzel_alpha, parameters.einzel_beta, parameters.einzel_gamma, parameters.epsilon),
 }
 
 DIPOLEMAG = {
 
-    'Input signal': sigmaMatrices.Input(parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
 
-    'Magnetic dipole for x plan': sigmaMatrices.DipoleMag_x(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+    'Magnetic dipole for x plan': sigma_matrices.DipoleMag_x(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
 
-    'Magnetic dipole for y plan': sigmaMatrices.DipoleMag_y(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
+    'Magnetic dipole for y plan': sigma_matrices.DipoleMag_y(parameters.dipoleMag_phi, parameters.dipoleMag_p, parameters.dipoleMag_alpha, parameters.dipoleMag_beta, parameters.dipoleMag_gamma, parameters.epsilon),
 }
 
 QUADRUPOLE = {
 
-    'Input signal': sigmaMatrices.Input(parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
 
-    'Electrostatic quadrupole for x plan': sigmaMatrices.QUADRU_X,
+    'Electrostatic quadrupole for x plan': sigma_matrices.QUADRU_X,
 
-    'Electrostatic quadrupole for y plan': sigmaMatrices.QUADRU_Y,
+    'Electrostatic quadrupole for y plan': sigma_matrices.QUADRU_Y,
 
 }
 
-# QUADRU_DOUBLET = {
+QUADRU_DOUBLET = {
 
-#     'Input signal': sigmaMatrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+    'Input signal': sigma_matrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-#     'Doublet for x plan': sigmaMatrices.Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+    'Doublet for x plan': sigma_matrices.Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-#     'Doublet for y plan': sigmaMatrices.Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+    'Doublet for y plan': sigma_matrices.Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-# }
+}
 
 
 mu = parameters.mu
 scale = parameters.scale
 
 
-# fig, axs = plt.subplots(1, 3)
-# for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
-#     x, y = get_correlated_dataset(2000, dependency, mu, scale)
-#     ax.scatter(x, y, s=0.5)
+fig, axs = plt.subplots(1, 3)
+for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
+    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
 
-#     ax.axvline(c='grey', lw=1)
-#     ax.axhline(c='grey', lw=1)
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
 
-#     confidence_ellipse(x, y, ax, edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
 
-#     ax.scatter(mu[0], mu[1], c='red', s=3)
-#     ax.set_title(title)
-#     ax.set_aspect('equal')
-#     ax.set_xlim((-30, 30))
-#     ax.set_ylim((-30, 30))
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim((-30, 30))
+    ax.set_ylim((-30, 30))
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
+    ax.legend()
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
@@ -208,8 +211,8 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 
@@ -228,8 +231,8 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-15, 15))
     ax.set_ylim((-15, 15))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 fig, axs = plt.subplots(1, 2)
@@ -247,8 +250,8 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 fig, axs = plt.subplots(1, 2)
@@ -266,8 +269,8 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 fig, axs = plt.subplots(1, 2)
@@ -285,8 +288,8 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
     ax.set_ylim((-30, 30))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 fig, axs = plt.subplots(1, 2)
@@ -304,8 +307,8 @@ for ax, (title, dependency) in zip(axs, DRIFT.items()):
     ax.set_aspect('equal')
     ax.set_xlim((-15, 15))
     ax.set_ylim((-15, 15))
-    ax.set_xlabel('X/Y')
-    ax.set_ylabel("X'/Y'")
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
 plt.show()
@@ -321,7 +324,7 @@ plt.show()
 
 fig, ax_nstd = plt.subplots(figsize=(6, 6))
 
-dependency_nstd = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+dependency_nstd = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
 mu = parameters.mu
 scale = parameters.scale
@@ -351,8 +354,8 @@ confidence_ellipse(x, y, ax_nstd, n_std=6.2021,
 
 ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
 ax_nstd.set_title('Different standard deviations for a drift')
-ax_nstd.set_xlabel('X/Y')
-ax_nstd.set_ylabel("X'/Y'")
+ax_nstd.set_xlabel('X/Y (mm)')
+ax_nstd.set_ylabel("X'/Y' (mrad)")
 ax_nstd.legend()
 plt.show()
 
@@ -367,7 +370,7 @@ plt.show()
 
 
 # fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-# dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+# dependency_kwargs = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
 # mu = parameters.mu
 # scale = parameters.scale
@@ -387,8 +390,8 @@ plt.show()
 # ax_kwargs.set_aspect('equal')
 # # ax_kwargs.set_xlim((-60, 60))
 # # ax_kwargs.set_ylim((-10, 10))
-# ax_kwargs.set_xlabel('X/Y')
-# ax_kwargs.set_ylabel("X'/Y'")
+# ax_kwargs.set_xlabel('X/Y (mm)')
+# ax_kwargs.set_ylabel("X'/Y' (mrad)")
 # ax_kwargs.legend()
 # fig.subplots_adjust(hspace=0.25)
 # plt.show()

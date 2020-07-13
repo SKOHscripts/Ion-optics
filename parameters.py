@@ -11,7 +11,7 @@ scale = 1, 1  # Dimension we give to the beam.
 # Input signal
 #
 
-input_alpha = 1.4
+input_alpha = 0
 input_beta = 2.3
 input_gamma = parameters_calculation.gamma(input_alpha, input_beta, epsilon)
 
@@ -75,14 +75,14 @@ einzel_gamma = parameters_calculation.gamma(einzel_alpha, einzel_beta, epsilon)
 #
 V0 = 1800
 V = 20000
-R = 3.5
-quadru_L = 0.300
-quadru_drift_L = 0.500
-quadru_alpha = 0
+R = 0.035
+quadru_L = 0.100
+quadru_drift_L = 0.100
+quadru_alpha = input_alpha
 quadru_beta = input_beta
 quadru_gamma = parameters_calculation.gamma(quadru_alpha, quadru_beta, epsilon)
-quadru_f = parameters_calculation.f(quadru_L, V0, V, R)
-print("1/f=", 1 / quadru_f)
+quadru_k = parameters_calculation.k(V0, V, R)  # k [m(-2)]
+print(f"k= {quadru_k} m(-2)")
 
 #############################################################################
 #
@@ -91,12 +91,12 @@ print("1/f=", 1 / quadru_f)
 
 V0 = 1800
 V = 20000
-R = 3.5
-doublet_L1 = 0.300
+R = 0.035
+doublet_L1 = 0.100
 doublet_L2 = 0.040
-doublet_L3 = 0.300
+doublet_L3 = 0.100
 doublet_L4 = 0.100
 doublet_alpha = input_alpha
 doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
-doublet_f = parameters_calculation.f(quadru_L, V0, V, R)
+doublet_k = parameters_calculation.k(V0, V, R)
