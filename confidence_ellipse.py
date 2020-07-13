@@ -366,29 +366,29 @@ plt.show()
 # to have the ellipse rendered in different ways.
 
 
-fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+# fig, ax_kwargs = plt.subplots(figsize=(6, 6))
+# dependency_kwargs = sigmaMatrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
-mu = parameters.mu
-scale = parameters.scale
+# mu = parameters.mu
+# scale = parameters.scale
 
-ax_kwargs.axvline(c='grey', lw=1)
-ax_kwargs.axhline(c='grey', lw=1)
+# ax_kwargs.axvline(c='grey', lw=1)
+# ax_kwargs.axhline(c='grey', lw=1)
 
-x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
-# Plot the ellipse with zorder=0 in order to demonstrate
-# its transparency (caused by the use of alpha).
-confidence_ellipse(x, y, ax_kwargs,
-                   alpha=0.5, label=r'$4.\epsilon_{rms}=95.5\%$', facecolor='pink', edgecolor='pink', zorder=0)
+# x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
+# # Plot the ellipse with zorder=0 in order to demonstrate
+# # its transparency (caused by the use of alpha).
+# confidence_ellipse(x, y, ax_kwargs,
+#                    alpha=0.5, label=r'$4.\epsilon_{rms}=95.5\%$', facecolor='pink', edgecolor='pink', zorder=0)
 
-ax_kwargs.scatter(x, y, s=0.5)
-ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
-ax_kwargs.set_title(f'Thin lens')
-ax_kwargs.set_aspect('equal')
-# ax_kwargs.set_xlim((-60, 60))
-# ax_kwargs.set_ylim((-10, 10))
-ax_kwargs.set_xlabel('X/Y')
-ax_kwargs.set_ylabel("X'/Y'")
-ax_kwargs.legend()
-fig.subplots_adjust(hspace=0.25)
-plt.show()
+# ax_kwargs.scatter(x, y, s=0.5)
+# ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
+# ax_kwargs.set_title(f'Thin lens')
+# ax_kwargs.set_aspect('equal')
+# # ax_kwargs.set_xlim((-60, 60))
+# # ax_kwargs.set_ylim((-10, 10))
+# ax_kwargs.set_xlabel('X/Y')
+# ax_kwargs.set_ylabel("X'/Y'")
+# ax_kwargs.legend()
+# fig.subplots_adjust(hspace=0.25)
+# plt.show()

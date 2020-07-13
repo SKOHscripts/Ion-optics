@@ -81,8 +81,8 @@ quadru_drift_L = 0.500
 quadru_alpha = 0
 quadru_beta = input_beta
 quadru_gamma = parameters_calculation.gamma(quadru_alpha, quadru_beta, epsilon)
-quadru_k = parameters_calculation.k(V0, V, R)
-print("k=", quadru_k)
+quadru_f = parameters_calculation.f(quadru_L, V0, V, R)
+print("1/f=", 1 / quadru_f)
 
 #############################################################################
 #
@@ -99,4 +99,4 @@ doublet_L4 = 0.100
 doublet_alpha = input_alpha
 doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
-doublet_k = parameters_calculation.k(V0, V, R)
+doublet_f = parameters_calculation.f(quadru_L, V0, V, R)
