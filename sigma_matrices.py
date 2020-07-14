@@ -167,7 +167,7 @@ print("Einzel: \n", Einzel(parameters.einzel_L1, parameters.einzel_f, parameters
 #
 
 
-def Quadri_conv(k, L1, L2, a, b, g, eps):
+def Quadru_conv(k, L1, L2, a, b, g, eps):
     T = np.array([[cos(sqrt(k) * L1), (1 / sqrt(k)) * sin(sqrt(k) * L1)],
                   [-sqrt(k) * sin(sqrt(k) * L1), cos(sqrt(k) * L1)]])
     Ttr = T.transpose()
@@ -180,10 +180,10 @@ def Quadri_conv(k, L1, L2, a, b, g, eps):
 
 
 print("")
-print("Convergent electrostatic quadripole: \n", Quadri_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
+print("Convergent electrostatic quadrupole: \n", Quadru_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
 
 
-def Quadri_div(k, L1, L2, a, b, g, eps):
+def Quadru_div(k, L1, L2, a, b, g, eps):
     T = np.array([[cosh(sqrt(k) * L1), (1 / sqrt(k)) * sinh(sqrt(k) * L1)],
                   [sqrt(k) * sinh(sqrt(k) * L1), cosh(sqrt(k) * L1)]])
     Ttr = T.transpose()
@@ -196,7 +196,7 @@ def Quadri_div(k, L1, L2, a, b, g, eps):
 
 
 print("")
-print("Divergent electrostatic quadripole: \n", Quadri_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
+print("Divergent electrostatic quadrupole: \n", Quadru_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
 
 
 '''
@@ -204,20 +204,20 @@ If the incoming beam converges, the quadrupole lens behaves as a convergent lens
 '''
 
 if parameters.quadru_alpha >= 0:
-    QUADRU_X = Quadri_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
-    QUADRU_Y = Quadri_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
+    QUADRU_X = Quadru_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
+    QUADRU_Y = Quadru_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
 else:
-    QUADRU_Y = Quadri_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
-    QUADRU_X = Quadri_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
+    QUADRU_Y = Quadru_conv(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
+    QUADRU_X = Quadru_div(parameters.quadru_k, parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
 
 
-def Quadru_doubletPM(k, L1, L2, L3, L4, a, b, g, eps):
+def Quadru_doubletPM(k1, k2, L1, L2, L3, L4, a, b, g, eps):
     if parameters.quadru_alpha >= 0:
-        QUADRU_X = Quadri_conv(k, L1, L2, a, b, g, eps)
-        QUADRU_Y = Quadri_div(k, L3, L4, a, b, g, eps)
+        QUADRU_X = Quadru_conv(k1, L1, L2, a, b, g, eps)
+        QUADRU_Y = Quadru_div(k2, L3, L4, a, b, g, eps)
     else:
-        QUADRU_Y = Quadri_conv(k, L3, L4, a, b, g, eps)
-        QUADRU_X = Quadri_div(k, L1, L2, a, b, g, eps)
+        QUADRU_Y = Quadru_conv(k1, L3, L4, a, b, g, eps)
+        QUADRU_X = Quadru_div(k2, L1, L2, a, b, g, eps)
 
     T1 = QUADRU_X
     T2 = QUADRU_Y
@@ -234,16 +234,16 @@ def Quadru_doubletPM(k, L1, L2, L3, L4, a, b, g, eps):
 
 
 print("")
-print("Doublet of quadripoles : \n", Quadru_doubletPM(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+print("Doublet of quadrupoles : \n", Quadru_doubletPM(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
 
 
-def Quadru_doubletMP(k, L1, L2, L3, L4, a, b, g, eps):
+def Quadru_doubletMP(k1, k2, L1, L2, L3, L4, a, b, g, eps):
     if parameters.quadru_alpha >= 0:
-        QUADRU_X = Quadri_conv(k, L1, L2, a, b, g, eps)
-        QUADRU_Y = Quadri_div(k, L3, L4, a, b, g, eps)
+        QUADRU_X = Quadru_conv(k1, L1, L2, a, b, g, eps)
+        QUADRU_Y = Quadru_div(k2, L3, L4, a, b, g, eps)
     else:
-        QUADRU_Y = Quadri_conv(k, L3, L4, a, b, g, eps)
-        QUADRU_X = Quadri_div(k, L1, L2, a, b, g, eps)
+        QUADRU_Y = Quadru_conv(k1, L3, L4, a, b, g, eps)
+        QUADRU_X = Quadru_div(k2, L1, L2, a, b, g, eps)
 
     T1 = QUADRU_X
     T2 = QUADRU_Y
@@ -260,4 +260,4 @@ def Quadru_doubletMP(k, L1, L2, L3, L4, a, b, g, eps):
 
 
 print("")
-print("Doublet of quadripoles : \n", Quadru_doubletMP(parameters.doublet_k, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+print("Doublet of quadrupoles : \n", Quadru_doubletMP(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))

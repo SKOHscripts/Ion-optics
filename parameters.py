@@ -99,4 +99,5 @@ doublet_L4 = 0.100
 doublet_alpha = input_alpha
 doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
-doublet_k = parameters_calculation.k(V0, V, R)
+doublet_k1 = parameters_calculation.k(V0, V, R)
+doublet_k2 = parameters_calculation.k(V0, V, R)
