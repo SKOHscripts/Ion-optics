@@ -68,6 +68,7 @@ cset = ax.contourf(x, y, z, zdir='z', offset=np.min(z), cmap=cm.coolwarm)
 cset = ax.contour(x, y, z, zdir='y', offset=3000, cmap=cm.coolwarm)
 cset = ax.contour(x, y, z, zdir='x', offset=-3000, cmap=cm.coolwarm)
 
-fig.colorbar(surf, cmap=cm.coolwarm_r)
+fig.colorbar(surf, cmap=cm.coolwarm)
+
 
 plt.show()

@@ -179,12 +179,13 @@ scale = parameters.scale
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(50000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -198,12 +199,13 @@ for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale, label='Dataset')
+    x, y = get_correlated_dataset(50000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -218,12 +220,13 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
 
 fig, axs = plt.subplots(1, 3)
 for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(50000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -237,12 +240,13 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, EINZEL.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(50000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -256,12 +260,13 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(50000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -275,12 +280,13 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, LENS.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale)
+    x, y = get_correlated_dataset(50000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
+    ax.hexbin(x, y, gridsize=50, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -294,12 +300,12 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
 
 fig, axs = plt.subplots(1, 2)
 for ax, (title, dependency) in zip(axs, DRIFT.items()):
-    x, y = get_correlated_dataset(2000, dependency, mu, scale, label='Dataset')
+    x, y = get_correlated_dataset(50000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
-
+    ax.hexbin(x, y, gridsize=100, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
@@ -335,7 +341,8 @@ ax_nstd.axhline(c='grey', lw=1)
 ax_nstd.set_xlim((-10, 10))
 ax_nstd.set_ylim((-5, 5))
 
-x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale, label='Dataset')
+# ax_nstd.hexbin(x, y, gridsize=50, cmap='inferno')
+x, y = get_correlated_dataset(10000, dependency_nstd, mu, scale, label='Dataset')
 ax_nstd.scatter(x, y, s=0.5)
 
 '''
