@@ -144,8 +144,8 @@ print("Magnetic dipole for y plan: \n", DipoleMag_y(parameters.dipoleMag_phi, pa
 #
 #
 def Einzel(L1, f, L2, a, b, g, eps):
-    T = np.array([[1 - L2 / f, L1 * (1 - L2 / f) + L2],
-                  [-1 / f, -L1 / f + 1]])
+    T = np.array([[1 - (L2 / f), L1 * (1 - (L2 / f)) + L2],
+                  [-1 / f, -(L1 / f) + 1]])
 
     Ttr = T.transpose()
 
@@ -168,8 +168,8 @@ print("Einzel: \n", Einzel(parameters.einzel_L1, parameters.einzel_f, parameters
 
 
 def Quadru_conv(k, L1, L2, a, b, g, eps):
-    T = np.array([[cos(sqrt(k) * L1), (1 / sqrt(k)) * sin(sqrt(k) * L1)],
-                  [-sqrt(k) * sin(sqrt(k) * L1), cos(sqrt(k) * L1)]])
+    T = np.array([[cos(k * L1), (1 / k) * sin(k * L1)],
+                  [-k * sin(k * L1), cos(k * L1)]])
     Ttr = T.transpose()
     Drifttr = Drift(L2, a, b, g, eps).transpose()
 
@@ -184,8 +184,8 @@ print("Convergent electrostatic quadrupole: \n", Quadru_conv(parameters.quadru_k
 
 
 def Quadru_div(k, L1, L2, a, b, g, eps):
-    T = np.array([[cosh(sqrt(k) * L1), (1 / sqrt(k)) * sinh(sqrt(k) * L1)],
-                  [sqrt(k) * sinh(sqrt(k) * L1), cosh(sqrt(k) * L1)]])
+    T = np.array([[cosh(k * L1), (1 / k) * sinh(k * L1)],
+                  [k * sinh(k * L1), cosh(k * L1)]])
     Ttr = T.transpose()
     Drifttr = Drift(L2, a, b, g, eps).transpose()
 

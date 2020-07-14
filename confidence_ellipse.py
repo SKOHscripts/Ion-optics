@@ -185,13 +185,13 @@ for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
+    # ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+    ax.set_ylim((-10, 10))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -204,13 +204,13 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
+    # ax.set_aspect('equal')
     ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+    ax.set_ylim((-10, 10))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -224,13 +224,13 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-15, 15))
-    ax.set_ylim((-15, 15))
+    # ax.set_aspect('equal')
+    ax.set_xlim((-20, 20))
+    ax.set_ylim((-5, 5))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -243,13 +243,13 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+    # ax.set_aspect('equal')
+    ax.set_xlim((-10, 10))
+    ax.set_ylim((-20, 20))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -262,13 +262,13 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+    # ax.set_aspect('equal')
+    ax.set_xlim((-10, 10))
+    ax.set_ylim((-20, 20))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -281,13 +281,13 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-30, 30))
+    # ax.set_aspect('equal')
+    ax.set_xlim((-10, 10))
+    ax.set_ylim((-20, 20))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
@@ -300,18 +300,18 @@ for ax, (title, dependency) in zip(axs, DRIFT.items()):
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red')
+    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    ax.set_aspect('equal')
-    ax.set_xlim((-15, 15))
-    ax.set_ylim((-15, 15))
+    # ax.set_aspect('equal')
+    ax.set_xlim((-10, 10))
+    ax.set_ylim((-5, 5))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-plt.show()
+# plt.show()
 
 
 ###############################################################################
@@ -331,9 +331,9 @@ scale = parameters.scale
 
 ax_nstd.axvline(c='grey', lw=1)
 ax_nstd.axhline(c='grey', lw=1)
-ax_nstd.set_aspect('equal')
-# ax_nstd.set_xlim((-60, 60))
-# ax_nstd.set_ylim((-10, 10))
+# ax_nstd.set_aspect('equal')
+ax_nstd.set_xlim((-10, 10))
+ax_nstd.set_ylim((-5, 5))
 
 x, y = get_correlated_dataset(2000, dependency_nstd, mu, scale, label='Dataset')
 ax_nstd.scatter(x, y, s=0.5)

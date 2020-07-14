@@ -1,5 +1,5 @@
 import parameters_calculation
-import math
+from math import *
 
 epsilon = 30  # Input emittance for the ion beam.
 n_std = 2.2977  # n_std : float 	The number of standard deviations to determine the ellipse's radiuses. We take chi2=2.2977 for 68.3% (epsilon rms)
@@ -81,8 +81,8 @@ quadru_drift_L = 0.100
 quadru_alpha = input_alpha
 quadru_beta = input_beta
 quadru_gamma = parameters_calculation.gamma(quadru_alpha, quadru_beta, epsilon)
-quadru_k = parameters_calculation.k(V0, V, R)  # k [m(-2)]
-print(f"k= {quadru_k} m(-2)")
+quadru_k = sqrt(parameters_calculation.k(V0, V, R))  # k [m(-1/2)]
+print(f"k= {quadru_k} m(-1/2)")
 
 #############################################################################
 #
@@ -99,5 +99,5 @@ doublet_L4 = 0.100
 doublet_alpha = input_alpha
 doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
-doublet_k1 = parameters_calculation.k(V0, V, R)
-doublet_k2 = parameters_calculation.k(V0, V, R)
+doublet_k1 = sqrt(parameters_calculation.k(V0, V, R))
+doublet_k2 = sqrt(parameters_calculation.k(V0, V, R))
