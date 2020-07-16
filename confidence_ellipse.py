@@ -177,7 +177,7 @@ mu = parameters.mu
 scale = parameters.scale
 
 
-fig, axs = plt.subplots(1, 3)
+fig, axs = plt.subplots(1, 3, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -197,7 +197,7 @@ for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 3)
+fig, axs = plt.subplots(1, 3, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
@@ -218,7 +218,7 @@ for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
     ax.legend()
 
 
-fig, axs = plt.subplots(1, 3)
+fig, axs = plt.subplots(1, 3, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -238,7 +238,7 @@ for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 2)
+fig, axs = plt.subplots(1, 2, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, EINZEL.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -258,7 +258,7 @@ for ax, (title, dependency) in zip(axs, EINZEL.items()):
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 2)
+fig, axs = plt.subplots(1, 2, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -278,7 +278,7 @@ for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 2)
+fig, axs = plt.subplots(1, 2, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, LENS.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
@@ -298,7 +298,7 @@ for ax, (title, dependency) in zip(axs, LENS.items()):
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 2)
+fig, axs = plt.subplots(1, 2, figsize=(10, 10))
 for ax, (title, dependency) in zip(axs, DRIFT.items()):
     x, y = get_correlated_dataset(20000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
@@ -328,7 +328,7 @@ plt.show()
 #
 
 
-fig, ax_nstd = plt.subplots(figsize=(6, 6))
+fig, ax_nstd = plt.subplots(figsize=(10, 10))
 
 dependency_nstd = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 

@@ -73,7 +73,7 @@ einzel_gamma = parameters_calculation.gamma(einzel_alpha, einzel_beta, epsilon)
 #
 # Electrostatic quadrupole parameters
 #
-V0 = 1800
+V0 = 900
 V = 20000
 R = 0.035
 quadru_L = 0.100
