@@ -72,7 +72,7 @@ cset = ax.contour(x, y, z, zdir='x', offset=parameters.optim_min - 100, cmap=cm.
 cbar = fig.colorbar(surf, cmap=cm.gist_earth)
 cbar.set_label('For x and y plans together')
 
-fig.savefig('optimisation.png', bbox_inches='tight', dpi=100)
+fig.savefig('pics/optimisation.png', bbox_inches='tight', dpi=100)
 
 xpre = precision
 plt.subplots()

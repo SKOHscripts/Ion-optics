@@ -260,7 +260,7 @@ for ax, (title, dependency) in zip(axs[3], DIPOLEMAG.items()):
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
 
-fig.savefig('beams1.png', bbox_inches='tight', dpi=100)
+fig.savefig('pics/beams1.png', bbox_inches='tight', dpi=100)
 
 fig, axs = plt.subplots(nrows=4, ncols=2, figsize=(10, 10), constrained_layout=True)
 # fig, axs = plt.subplots(1, 2, figsize=(10, 10))
@@ -339,7 +339,7 @@ for ax, (title, dependency) in zip(axs[3], DRIFT.items()):
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
 
-fig.savefig('beams2.png', bbox_inches='tight', dpi=100)
+fig.savefig('pics/beams2.png', bbox_inches='tight', dpi=100)
 
 plt.show()
 
@@ -352,7 +352,7 @@ plt.show()
 #
 
 
-fig, ax_nstd = plt.subplots(figsize=(10, 10))
+fig, ax_nstd = plt.subplots(figsize=(10, 10), constrained_layout=True)
 
 dependency_nstd = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
@@ -387,7 +387,7 @@ ax_nstd.set_title('Different standard deviations for a drift')
 ax_nstd.set_xlabel('X/Y (mm)')
 ax_nstd.set_ylabel("X'/Y' (mrad)")
 ax_nstd.legend()
-fig.savefig('drift.png', bbox_inches='tight', dpi=100)
+fig.savefig('pics/drift.png', bbox_inches='tight', dpi=100)
 plt.show()
 
 
@@ -400,29 +400,30 @@ plt.show()
 # to have the ellipse rendered in different ways.
 
 
-# fig, ax_kwargs = plt.subplots(figsize=(6, 6))
-# dependency_kwargs = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+fig, ax_kwargs = plt.subplots(figsize=(10, 10), constrained_layout=True)
+dependency_kwargs = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
-# mu = parameters.mu
-# scale = parameters.scale
+mu = parameters.mu
+scale = parameters.scale
 
-# ax_kwargs.axvline(c='grey', lw=1)
-# ax_kwargs.axhline(c='grey', lw=1)
+ax_kwargs.axvline(c='grey', lw=1)
+ax_kwargs.axhline(c='grey', lw=1)
 
-# x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
-# # Plot the ellipse with zorder=0 in order to demonstrate
-# # its transparency (caused by the use of alpha).
-# confidence_ellipse(x, y, ax_kwargs,
-#                    alpha=0.5, label=r'$4.\epsilon_{rms}=95.5\%$', facecolor='pink', edgecolor='pink', zorder=0)
+x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
+# Plot the ellipse with zorder=0 in order to demonstrate
+# its transparency (caused by the use of alpha).
+confidence_ellipse(x, y, ax_kwargs, n_std=2.2977,
+                   alpha=0.5, label=r'$\epsilon_{rms}=68.3\%$', facecolor='pink', edgecolor='pink', zorder=0)
 
-# ax_kwargs.scatter(x, y, s=0.5)
-# ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
-# ax_kwargs.set_title(f'Thin lens')
-# ax_kwargs.set_aspect('equal')
-# # ax_kwargs.set_xlim((-60, 60))
-# # ax_kwargs.set_ylim((-10, 10))
-# ax_kwargs.set_xlabel('X/Y (mm)')
-# ax_kwargs.set_ylabel("X'/Y' (mrad)")
-# ax_kwargs.legend()
-# fig.subplots_adjust(hspace=0.25)
-# plt.show()
+ax_kwargs.scatter(x, y, s=0.5)
+ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
+ax_kwargs.set_title(f'Drift')
+
+ax_kwargs.set_xlabel('X/Y (mm)')
+ax_kwargs.set_ylabel("X'/Y' (mrad)")
+ax_kwargs.legend()
+fig.subplots_adjust(hspace=0.25)
+
+fig.savefig('pics/drift2.png', bbox_inches='tight', dpi=100)
+
+plt.show()
