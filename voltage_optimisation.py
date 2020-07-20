@@ -82,5 +82,4 @@ plt.plot(xpre)
 plt.suptitle('Precision', fontsize=20)
 
 
-
 plt.show()
