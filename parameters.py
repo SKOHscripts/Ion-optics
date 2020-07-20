@@ -89,7 +89,7 @@ print(f"k= {quadru_k} m(-1/2)")
 # Doublet parameters
 #
 
-V0 = 1800
+V0 = 900
 V = 20000
 R = 0.035
 doublet_L1 = 0.100
@@ -101,3 +101,31 @@ doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
 doublet_k1 = sqrt(parameters_calculation.k(V0, V, R))
 doublet_k2 = sqrt(parameters_calculation.k(V0, V, R))
+#############################################################################
+#
+# Voltage optimisation
+#
+optim_nb_points = 1000
+optim_min = 0
+optim_max = 2000
+optim_V = 20000
+optim_R = 0.035
+optim_drift_L = 0.050
+optim_dist = 0.040  # distance between the quadrupoles
+optim_drift_alpha = input_alpha
+optim_drift_beta = input_beta
+optim_drift_gamma = parameters_calculation.gamma(input_alpha, input_beta, epsilon)
+optim_LensDrift_f = 0.520
+optim_LensDrift_L = 0.100
+optim_LensDrift_alpha = input_alpha
+optim_LensDrift_beta = input_beta
+optim_LensDrift_gamma = parameters_calculation.gamma(LensDrift_alpha, LensDrift_beta, epsilon)
+
+#############################################################################
+#
+# Finding V
+#
+
+findingV_accuracy = 0.01
+findingV_V = 3000
+findingV_R = 0.035

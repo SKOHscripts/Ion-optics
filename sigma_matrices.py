@@ -168,10 +168,10 @@ print("Einzel: \n", Einzel(parameters.einzel_L1, parameters.einzel_f, parameters
 
 
 def Quadru_conv(k, L1, L2, a, b, g, eps):
-    T = np.array([[cos(k * L1), (1 / k) * sin(k * L1)],
-                  [-k * sin(k * L1), cos(k * L1)]])
-    Ttr = T.transpose()
-    Drifttr = Drift(L2, a, b, g, eps).transpose()
+    T = np.array([[np.cos(k * L1), (1 / k) * np.sin(k * L1)],
+                  [-k * np.sin(k * L1), np.cos(k * L1)]])
+    Ttr = np.transpose(T)
+    Drifttr = np.transpose(Drift(L2, a, b, g, eps))
 
     sigma_in = np.array([[b, -a],
                          [-a, g]])
@@ -184,8 +184,8 @@ print("Convergent electrostatic quadrupole: \n", Quadru_conv(parameters.quadru_k
 
 
 def Quadru_div(k, L1, L2, a, b, g, eps):
-    T = np.array([[cosh(k * L1), (1 / k) * sinh(k * L1)],
-                  [k * sinh(k * L1), cosh(k * L1)]])
+    T = np.array([[np.cosh(k * L1), (1 / k) * np.sinh(k * L1)],
+                  [k * np.sinh(k * L1), np.cosh(k * L1)]])
     Ttr = T.transpose()
     Drifttr = Drift(L2, a, b, g, eps).transpose()
 
@@ -224,17 +224,17 @@ def Quadru_doubletPM(k1, k2, L1, L2, L3, L4, a, b, g, eps):
     T1tr = T1.transpose()
     T2tr = T2.transpose()
 
-    T = T1.dot(T2)
+    T = np.dot(T1, T2)
 
     sigma_in = np.array([[b, -a],
                          [-a, g]])
-    Ttr = T1tr.dot(T2tr)
+    Ttr = np.dot(T1tr, T2tr)
 
-    return T.dot(sigma_in).dot(Ttr)
+    return np.dot(T, sigma_in, Ttr)
 
 
 print("")
-print("Doublet of quadrupoles : \n", Quadru_doubletPM(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+print("Doublet of quadrupoles for x plan: \n", Quadru_doubletPM(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
 
 
 def Quadru_doubletMP(k1, k2, L1, L2, L3, L4, a, b, g, eps):
@@ -250,30 +250,30 @@ def Quadru_doubletMP(k1, k2, L1, L2, L3, L4, a, b, g, eps):
     T1tr = T1.transpose()
     T2tr = T2.transpose()
 
-    T = T2.dot(T1)
+    T = np.dot(T1, T2)
 
     sigma_in = np.array([[b, -a],
                          [-a, g]])
-    Ttr = T2tr.dot(T1tr)
+    Ttr = np.dot(T1tr, T2tr)
 
-    return T.dot(sigma_in).dot(Ttr)
+    return np.dot(T, sigma_in, Ttr)
 
 
 print("")
-print("Doublet of quadrupoles : \n", Quadru_doubletMP(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
+print("Doublet of quadrupoles for y plan: \n", Quadru_doubletMP(parameters.doublet_k1, parameters.doublet_k2, parameters.doublet_L1, parameters.doublet_L2, parameters.doublet_L3, parameters.doublet_L4, parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon))
 
 
 def Quadru_doubletPM_approx(f1, f2, L1, L2, V, R, a, b, g, eps):
-    return Drift(L1 / 2, a, b, g, eps).dot(LensDrift(f1, L2, a, b, g, eps)).dot(LensDrift(f2, L2 / 2, a, b, g, eps))
+    return Drift(L1 / 2, a, b, g, eps).dot(LensDrift(f1, L2, a, b, g, eps)).dot(LensDrift(-f2, L2 / 2, a, b, g, eps))
 
 
 print("")
-print("Doublet_approxPM: \n", Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, -2000, parameters.V, parameters.R), parameters_calculation.f(parameters.quadru_L, 2000, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
+print("Doublet_approxPM: \n", Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters_calculation.f(parameters.quadru_L, 2000, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
 
 
 def Quadru_doubletMP_approx(f, L1, L2, V, R, a, b, g, eps):
-    return Drift(L1 / 2, a, b, g, eps).dot(LensDrift(f, L2, a, b, g, eps)).dot(LensDrift(-f, L2, a, b, g, eps))
+    return Drift(L1 / 2, a, b, g, eps).dot(LensDrift(-f, L2, a, b, g, eps)).dot(LensDrift(f, L2, a, b, g, eps))
 
 
 print("")
-print("Doublet_approxMP: \n", Quadru_doubletMP_approx(-parameters_calculation.f(parameters.quadru_L, 1800, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))
+print("Doublet_approxMP: \n", Quadru_doubletMP_approx(-parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon))

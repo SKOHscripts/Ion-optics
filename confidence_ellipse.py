@@ -172,150 +172,174 @@ QUADRU_DOUBLET = {
 
 }
 
+QUADRU_DOUBLET_APPROX = {
+
+    'Input signal': sigma_matrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+
+    'Doublet approximation for x plan': sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters_calculation.f(parameters.quadru_L, 2000, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+
+    'Doublet approximation for y plan': sigma_matrices.Quadru_doubletMP_approx(-parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+
+}
+
 
 mu = parameters.mu
 scale = parameters.scale
 
+fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(10, 10), constrained_layout=True)
+# fig.subplots_adjust(wspace=0.2, hspace=1.3, left=0.07, right=0.93)
 
-fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, QUADRU_DOUBLET.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale)
+for ax, (title, dependency) in zip(axs[0], QUADRU_DOUBLET_APPROX.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, cmap='inferno')
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-10, 10))
-    ax.set_xlabel('X/Y (mm)')
+
     ax.set_ylabel("X'/Y' (mrad)")
     ax.legend()
 
-fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, QUADRUPOLE.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale, label='Dataset')
+# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[1], QUADRU_DOUBLET.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
-    ax.set_xlim((-30, 30))
-    ax.set_ylim((-10, 10))
-    ax.set_xlabel('X/Y (mm)')
+
     ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
 
-
-fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, DIPOLEMAG.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale)
+# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[2], QUADRUPOLE.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
+
     ax.set_xlim((-20, 20))
-    ax.set_ylim((-5, 5))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
+    ax.set_ylim((-2.2, 2.2))
 
-fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, EINZEL.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale)
+    ax.set_ylabel("X'/Y' (mrad)")
+
+
+# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[3], DIPOLEMAG.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, cmap='inferno')
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+
+    ax.set_xlim((-10, 10))
+    ax.set_ylim((-2, 2))
+    ax.set_xlabel('X/Y (mm)')
+    ax.set_ylabel("X'/Y' (mrad)")
+
+fig.savefig('beams1.png', bbox_inches='tight', dpi=100)
+
+fig, axs = plt.subplots(nrows=4, ncols=2, figsize=(10, 10), constrained_layout=True)
+# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[0], EINZEL.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
+
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
+
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
+    # ax.set_aspect('auto')
+    ax.set_xlim((-5, 5))
+    ax.set_ylim((-15, 15))
+
+    ax.set_ylabel("X'/Y' (mrad)")
+    ax.legend()
+
+# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[1], LENSDRIFT.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
+    ax.scatter(x, y, s=0.5)
+
+    ax.axvline(c='grey', lw=1)
+    ax.axhline(c='grey', lw=1)
+
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+
+    ax.scatter(mu[0], mu[1], c='red', s=3)
+    ax.set_title(title)
+    # ax.set_aspect('auto')
     ax.set_xlim((-10, 10))
     ax.set_ylim((-20, 20))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
 
-fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, LENSDRIFT.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale)
+    ax.set_ylabel("X'/Y' (mrad)")
+
+# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[2], LENS.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale)
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
+    # ax.set_aspect('auto')
     ax.set_xlim((-10, 10))
     ax.set_ylim((-20, 20))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
 
-fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, LENS.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale)
+    ax.set_ylabel("X'/Y' (mrad)")
+
+# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+for ax, (title, dependency) in zip(axs[3], DRIFT.items()):
+    x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
     ax.scatter(x, y, s=0.5)
 
     ax.axvline(c='grey', lw=1)
     ax.axhline(c='grey', lw=1)
-
-    ax.hexbin(x, y, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
-
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    # ax.set_aspect('equal')
-    ax.set_xlim((-10, 10))
-    ax.set_ylim((-20, 20))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
-
-fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs, DRIFT.items()):
-    x, y = get_correlated_dataset(20000, dependency, mu, scale, label='Dataset')
-    ax.scatter(x, y, s=0.5)
-
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
-    ax.hexbin(x, y, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+    ax.hexbin(x, y, gridsize=150, cmap='inferno')
+    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
     ax.scatter(mu[0], mu[1], c='red', s=3)
     ax.set_title(title)
-    # ax.set_aspect('equal')
-    ax.set_xlim((-10, 10))
-    ax.set_ylim((-5, 5))
+    # ax.set_aspect('auto')
+    ax.set_xlim((-7.5, 7.5))
+    ax.set_ylim((-2, 2))
     ax.set_xlabel('X/Y (mm)')
     ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
+
+fig.savefig('beams2.png', bbox_inches='tight', dpi=100)
 
 plt.show()
 
@@ -337,9 +361,6 @@ scale = parameters.scale
 
 ax_nstd.axvline(c='grey', lw=1)
 ax_nstd.axhline(c='grey', lw=1)
-# ax_nstd.set_aspect('equal')
-ax_nstd.set_xlim((-10, 10))
-ax_nstd.set_ylim((-5, 5))
 
 
 x, y = get_correlated_dataset(100000, dependency_nstd, mu, scale, label='Dataset')
@@ -366,6 +387,7 @@ ax_nstd.set_title('Different standard deviations for a drift')
 ax_nstd.set_xlabel('X/Y (mm)')
 ax_nstd.set_ylabel("X'/Y' (mrad)")
 ax_nstd.legend()
+fig.savefig('drift.png', bbox_inches='tight', dpi=100)
 plt.show()
 
 
