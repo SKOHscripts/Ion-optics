@@ -8,6 +8,7 @@ creation : 20/07/2020
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 
 import parameters
 import parameters_calculation
@@ -99,21 +100,27 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     #
     fig, ax = plt.subplots(1, 1, figsize=(12, 14))
 
-    y = [parameters.findingf_L1, parameters.findingf_L1 + parameters.findingf_L2, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4]
+    x = [parameters.findingf_L1, parameters.findingf_L1 + parameters.findingf_L2, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4]
 
-    plt.plot(y, F, 'o')
+    plt.plot(x, F, 'o')
 
     plt.suptitle('Focal lengths for each lens', fontsize=20)
 
-    grid_x_ticks = np.arange(0, 3.5, 0.1)
-    grid_y_ticks = np.arange(0, 3.5, 0.1)
+    ax.set_xlim(-0.2, 3.5)
+    ax.set_ylim(-np.amax([abs(ele) for ele in F]) - 0.2, np.amax([abs(ele) for ele in F]) + 0.2)
+
+    grid_x_ticks = np.arange(-0.2, 3.5, 0.1)
+    grid_y_ticks = np.arange(-np.amax([abs(ele) for ele in F]) - 0.2, np.amax([abs(ele) for ele in F]) + 0.2, 0.5)
 
     ax.set_xticks(grid_x_ticks, minor=True)
     ax.set_yticks(grid_y_ticks, minor=True)
 
     ax.set_ylabel("Focal lengths (m)")
     ax.set_xlabel("Distance between the lens and the entrance (m)")
-    plt.legend()
+    extra1 = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+    extra2 = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+
+    plt.legend([extra1, extra2], (fr'$\alpha_i= {parameters.findingf_alpha:.4f}$', fr'$\alpha_o= {alpha4[min4]:.4f}$'))
 
     plt.grid(which='both')
     plt.grid(which='minor', alpha=0.3, linestyle='--')
@@ -122,12 +129,22 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     # Annotate
     #
     bbox = dict(boxstyle="round", fc="0.8")
-    arrowprops = dict(arrowstyle="->", connectionstyle="angle,angleA=0,angleB=90,rad=10")
 
-    ax.annotate('$1^{st}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1, F[0]), (parameters.findingf_L1, F[0]), xytext=(20, 20), textcoords='offset points', bbox=bbox, arrowprops=arrowprops)
-    ax.annotate('$2^{nd}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2, F[1]), (parameters.findingf_L1 + parameters.findingf_L2, F[1]), xytext=(20, 20), textcoords='offset points', bbox=bbox, arrowprops=arrowprops)
-    ax.annotate('$3^{rd}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, F[2]), (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, F[2]), xytext=(20, 20), textcoords='offset points', bbox=bbox, arrowprops=arrowprops)
-    ax.annotate('$4^{th}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, F[3]), (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, F[3]), xytext=(-7 * 20, 20), textcoords='offset points', bbox=bbox, arrowprops=arrowprops)
+    ax.annotate('$1^{st}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1, F[0]), (parameters.findingf_L1, F[0]), xytext=(20, 20), textcoords='offset points', bbox=bbox)
+    ax.annotate('$2^{nd}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2, F[1]), (parameters.findingf_L1 + parameters.findingf_L2, F[1]), xytext=(20, 20), textcoords='offset points', bbox=bbox)
+    ax.annotate('$3^{rd}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, F[2]), (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, F[2]), xytext=(20, 20), textcoords='offset points', bbox=bbox)
+    ax.annotate('$4^{th}$ Einzel lens :\n(D= %.2f m, f= %.4f m)' % (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, F[3]), (parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, F[3]), xytext=(20, 20), textcoords='offset points', bbox=bbox)
+
+    # ax.axvline(x=parameters.findingf_L1, c='k', lw=1)
+    # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2, c='k', lw=1)
+    ax.axvline(x=0, c='k', lw=2)
+    # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, c='k', lw=1)
+    # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, c='k', lw=1)
+
+    ax.annotate("", xy=(parameters.findingf_L1, F[0]), xytext=(parameters.findingf_L1, -F[0]), arrowprops=dict(arrowstyle="<->"))
+    ax.annotate("", xy=(parameters.findingf_L1 + parameters.findingf_L2, F[1]), xytext=(parameters.findingf_L1 + parameters.findingf_L2, -F[1]), arrowprops=dict(arrowstyle="<->"))
+    ax.annotate("", xy=(parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, F[2]), xytext=(parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, -F[2]), arrowprops=dict(arrowstyle="<->"))
+    ax.annotate("", xy=(parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, F[3]), xytext=(parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, -F[3]), arrowprops=dict(arrowstyle="<->"))
 
     fig.savefig('pics/finding_f.png', bbox_inches='tight', dpi=100)
     plt.show()

@@ -26,6 +26,8 @@ In order to visualize them, you just have to compile the file **confidence_ellip
 In this part I'm going to simulate a double quadruple pole (approximated by a lens with drifts) in which I'm going to insert a parallel beam. The goal is to find two combinations of voltages to be applied to the quadripoles and which allow to have a beam as parallel as possible.
 
 ![Optimisation of the angle variation according to the voltage of the quadrupoles](pics/optimisation.png)
+![Optimisation of the angle variation according to the voltage of the quadrupoles](pics/optimisation2.png)
+![Optimisation of the angle variation according to the voltage of the quadrupoles](pics/optimisation3.png)
 
 ---
 

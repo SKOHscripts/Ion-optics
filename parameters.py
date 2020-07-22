@@ -113,7 +113,7 @@ doublet_k2 = sqrt(parameters_calculation.k(V0, V, R))
 #
 # Voltage optimisation
 #
-optim_nb_points = 5000
+optim_nb_points = 2000
 optim_min = 0
 optim_max = 2000
 optim_V = 20000
@@ -134,10 +134,10 @@ optim_LensDrift_gamma = parameters_calculation.gamma(LensDrift_alpha, LensDrift_
 # Finding f
 #
 
-findingf_L1 = 0.500
-findingf_L2 = 0.600
-findingf_L3 = 1.2
-findingf_L4 = 1.1
+findingf_L1 = 0.600
+findingf_L2 = 0.550
+findingf_L3 = 1.100
+findingf_L4 = 0.55
 findingf_accuracy = 0.1
 findingf_V = 3000
 findingf_R = 0.035
