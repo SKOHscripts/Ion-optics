@@ -1,3 +1,11 @@
+'''
+@file : voltage_optimisation.py
+@brief : This program uses the approximation of an electrostatic quadrupole by a thin lens edged with drifts to find the voltage couple(s) that allow to have a minimum variation of the emissivity angle at the output with respect to the input. 
+
+@author : Corentin MICHEL
+creation : 20/07/2020
+'''
+
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm

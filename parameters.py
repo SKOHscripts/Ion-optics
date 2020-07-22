@@ -1,5 +1,13 @@
+'''
+@file : parameters.py
+@brief :  To simplify the calling of functions, all parameters are noted here. 
+@author : Corentin MICHEL
+creation : 20/07/2020
+'''
+
 import parameters_calculation
 from math import *
+import numpy as np
 
 epsilon = 30  # Input emittance for the ion beam.
 n_std = 2.2977  # n_std : float 	The number of standard deviations to determine the ellipse's radiuses. We take chi2=2.2977 for 68.3% (epsilon rms)
@@ -105,7 +113,7 @@ doublet_k2 = sqrt(parameters_calculation.k(V0, V, R))
 #
 # Voltage optimisation
 #
-optim_nb_points = 1000
+optim_nb_points = 5000
 optim_min = 0
 optim_max = 2000
 optim_V = 20000
@@ -123,9 +131,17 @@ optim_LensDrift_gamma = parameters_calculation.gamma(LensDrift_alpha, LensDrift_
 
 #############################################################################
 #
-# Finding V
+# Finding f
 #
 
-findingV_accuracy = 0.01
-findingV_V = 3000
-findingV_R = 0.035
+findingf_L1 = 0.500
+findingf_L2 = 0.600
+findingf_L3 = 1.2
+findingf_L4 = 1.1
+findingf_accuracy = 0.1
+findingf_V = 3000
+findingf_R = 0.035
+findingf_eps = 5
+findingf_alpha = 0
+findingf_beta = 1.8
+findingf_tocheck = np.linspace(-3000, 3000, 6001)

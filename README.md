@@ -12,8 +12,21 @@ Finally, the ellipses are displayed thanks to the code coming from <a href="http
 
 In order to visualize them, you just have to compile the file **confidence_ellipse.py**. You can modify the ellipses to display by copying the sigma matrix code from the **sigma_matrices.py** file in this viewing program.
 
+---
+
+### Visualization of beam ellipses at the output of the different optical elements.
 ![Drift visualization](pics/beams2.png)
 ![Drift visualization](pics/beams1.png)
 ![Drift visualization](pics/drift.png)
 ![Drift visualization](pics/drift2.png)
-![Optimisation of the angle variation according to the voltage of the quadrupoles](optimisation.png)
+
+---
+
+### Optimizations
+In this part I'm going to simulate a double quadruple pole (approximated by a lens with drifts) in which we're going to insert a parallel beam. The goal is to find two combinations of voltages to be applied to the quadripoles and which allow to have a beam as parallel as possible.
+![Optimisation of the angle variation according to the voltage of the quadrupoles](pics/optimisation.png)
+
+---
+
+In this part I will simulate a tunnel of 3.4 m in which 4 Einzel lenses are placed. The goal is to find the focal lengths of these lenses which allow to have a beam as parallel as possible at the exit. 
+![Finding focal lengths](pics/finding_f.png)

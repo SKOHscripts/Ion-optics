@@ -1,3 +1,11 @@
+'''
+@file : parameters_calculation.py
+@brief :  Functions to calculate some other parameters. 
+
+@author : Corentin MICHEL
+creation : 20/07/2020
+'''
+
 from math import *
 
 

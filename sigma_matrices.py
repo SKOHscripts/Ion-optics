@@ -1,3 +1,11 @@
+'''
+@file : sigma_matrices.py
+@brief : Here we calculate the sigma matrices of every optical element of the pipeline thanks to their transfert matrices. 
+
+@author : Corentin MICHEL
+creation : 20/07/2020
+'''
+
 from pylab import *
 import numpy as np
 from math import *

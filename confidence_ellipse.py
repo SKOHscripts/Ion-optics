@@ -1,3 +1,11 @@
+'''
+@file : confidence_ellipse.py
+@brief :  The output ellipses are displayed here thanks to the creation of correlated data and then a plot of ellipses thanks to the chi2 law. An ellipse of 68.3% of the values is displayed. Each transfer matrix is calculated in the sigma_matrices.py file.
+ 
+@author : Corentin MICHEL
+creation : 20/07/2020
+'''
+
 import numpy as np
 import pylab
 import matplotlib.pyplot as plt
