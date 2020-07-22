@@ -111,6 +111,10 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     ax.set_xticks(grid_x_ticks, minor=True)
     ax.set_yticks(grid_y_ticks, minor=True)
 
+    ax.set_ylabel("Focal lengths (m)")
+    ax.set_xlabel("Distance between the lens and the entrance (m)")
+    plt.legend()
+
     plt.grid(which='both')
     plt.grid(which='minor', alpha=0.3, linestyle='--')
 
