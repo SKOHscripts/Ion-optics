@@ -8,6 +8,7 @@ creation : 20/07/2020
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
@@ -53,6 +54,16 @@ for i in range(10, parameters.optim_nb_points):
     # ax.set_ylabel('Quadrupole voltage (1st or 2nd) (V)', fontsize=15)
     ax.set_ylim(parameters.optim_min, parameters.optim_max)
     ax.set_zlabel(r'$\Delta \alpha$', fontsize=20)
+    ax.set_xlabel(r'$1^{st}$ quadrupole (V)', fontsize=20)
+    ax.set_ylabel(r'$2^{nd}$ quadrupole (V)', fontsize=20)
+
+    plt.grid(which='both')
+    plt.grid(which='minor', alpha=0.3, linestyle='--')
+    grid_x_ticks = np.arange(parameters.optim_min, parameters.optim_max, 50)
+    grid_y_ticks = np.arange(parameters.optim_min, parameters.optim_max, 50)
+
+    ax.set_xticks(grid_x_ticks, minor=True)
+    ax.set_yticks(grid_y_ticks, minor=True)
 
     zmin = np.where(z == np.amin(z))
     xmin = x[zmin][0]
@@ -61,21 +72,17 @@ for i in range(10, parameters.optim_nb_points):
     print(f'{xmin:.2f} ({i}/{parameters.optim_nb_points})')
 
 
-ax.set_xticks([parameters.optim_min, ymin, abs(xmin), parameters.optim_max])
-ax.set_xticklabels([f'{parameters.optim_min} V', f'1st combination= {ymin:.2f} V', f'2nd combination= {abs(xmin):.2f} V', f'{parameters.optim_max} V'])
+extra1 = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+extra2 = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+extra3 = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+
+plt.legend([extra1, extra2, extra3], (fr'$\Delta \alpha min$= {np.amin(z):.2E} rad', fr'$V_1= {abs(xmin):.2f}$ V', fr'$V_2= {abs(ymin):.2f}$ V'))
 
 
-ax.set_yticks([parameters.optim_min, xmin, abs(ymin), parameters.optim_max])
-ax.set_yticklabels([f'{parameters.optim_min} V', f'1st combination= {xmin:.2f} V', f'2nd combination= {abs(ymin):.2f} V', f'{parameters.optim_max} V'])
-
-ax.set_zticks([np.amin(z)])
-ax.set_zticklabels([f'min= {np.amin(z):.2E} rad'])
-
-
-surf = ax.plot_surface(x, y, z, alpha=0.8, cmap=cm.gist_earth)
-cset = ax.contour(x, y, z, zdir='z', alpha=0.7, offset=np.min(z), cmap=cm.gist_earth)
-cset = ax.contour(x, y, z, zdir='y', offset=parameters.optim_max + 100, cmap=cm.gist_earth)
-cset = ax.contour(x, y, z, zdir='x', offset=parameters.optim_min - 100, cmap=cm.gist_earth)
+surf = ax.plot_surface(x, y, z, alpha=0.6, cmap=cm.gist_earth, antialiased=True)
+#cset = ax.contour(x, y, z, zdir='z', alpha=0.7, offset=np.min(z), cmap=cm.gist_earth)
+#cset = ax.contour(x, y, z, zdir='y', offset=parameters.optim_max + 100, cmap=cm.gist_earth)
+#cset = ax.contour(x, y, z, zdir='x', offset=parameters.optim_min - 100, cmap=cm.gist_earth)
 
 cbar = fig.colorbar(surf, cmap=cm.gist_earth)
 cbar.set_label('For x and y plans together')
