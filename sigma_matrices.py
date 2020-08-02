@@ -347,9 +347,3 @@ def Quadru_tripletMPM(k1, k2, k3, Lq1, Lq2, Lq3, Ld1, Ld2, Ld3, a, b, g, eps):
 
 print("")
 print("Triplet of quadrupoles for y plan: \n", Quadru_tripletMPM(parameters.triplet_k1, parameters.triplet_k2, parameters.triplet_k3, parameters.triplet_Lq1, parameters.triplet_Lq2, parameters.triplet_Lq3, parameters.triplet_Ld1, parameters.triplet_Ld2, parameters.triplet_Ld3, parameters.triplet_alpha, parameters.triplet_beta, parameters.triplet_gamma, parameters.epsilon))
-
-zx = abs(Drift(parameters.optim_drift_L, parameters.optim_drift_alpha, parameters.optim_drift_beta, parameters.optim_drift_gamma, parameters.epsilon).dot(LensDrift(parameters_calculation.f(parameters.optim_LensDrift_L, 733, parameters.optim_V, parameters.optim_R), parameters.optim_drift_L + parameters.optim_dist, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon))[0][1] + LensDrift(-parameters_calculation.f(parameters.optim_LensDrift_L, 1250, parameters.optim_V, parameters.optim_R), parameters.optim_drift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon)[0][1])
-
-zy = abs(Drift(parameters.optim_drift_L, parameters.optim_drift_alpha, parameters.optim_drift_beta, parameters.optim_drift_gamma, parameters.epsilon).dot(LensDrift(-parameters_calculation.f(parameters.optim_LensDrift_L, 733, parameters.optim_V, parameters.optim_R), 2 * parameters.optim_drift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon))[0][1] + LensDrift(parameters_calculation.f(parameters.optim_LensDrift_L, 1250, parameters.optim_V, parameters.optim_R), 2 * parameters.optim_drift_L, parameters.LensDrift_alpha, parameters.LensDrift_beta, parameters.LensDrift_gamma, parameters.epsilon)[0][1])
-
-print(zx * zy)
