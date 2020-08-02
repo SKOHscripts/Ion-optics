@@ -184,9 +184,19 @@ QUADRU_DOUBLET_APPROX = {
 
     'Input signal': sigma_matrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-    'Doublet approximation for x plan': sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters_calculation.f(parameters.quadru_L, 2000, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+    'Doublet approximation for x plan': sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
 
-    'Doublet approximation for y plan': sigma_matrices.Quadru_doubletMP_approx(-parameters_calculation.f(parameters.quadru_L, 900, parameters.V, parameters.R), parameters.quadru_L, parameters.quadru_drift_L, parameters.V, parameters.R, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+    'Doublet approximation for y plan': sigma_matrices.Quadru_doubletMP_approx(parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+
+}
+
+QUADRU_TRIPLET = {
+
+    'Input signal': sigma_matrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
+
+    'Triplet for x plan': sigma_matrices.Quadru_tripletPMP(parameters.triplet_k1, parameters.triplet_k2, parameters.triplet_k3, parameters.triplet_Lq1, parameters.triplet_Lq2, parameters.triplet_Lq3, parameters.triplet_Ld1, parameters.triplet_Ld2, parameters.triplet_Ld3, parameters.triplet_alpha, parameters.triplet_beta, parameters.triplet_gamma, parameters.epsilon),
+
+    'Triplet for y plan': sigma_matrices.Quadru_tripletMPM(parameters.triplet_k1, parameters.triplet_k2, parameters.triplet_k3, parameters.triplet_Lq1, parameters.triplet_Lq2, parameters.triplet_Lq3, parameters.triplet_Ld1, parameters.triplet_Ld2, parameters.triplet_Ld3, parameters.triplet_alpha, parameters.triplet_beta, parameters.triplet_gamma, parameters.epsilon),
 
 }
 
@@ -194,162 +204,178 @@ QUADRU_DOUBLET_APPROX = {
 mu = parameters.mu
 scale = parameters.scale
 
-fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(10, 10), constrained_layout=True)
-# fig.subplots_adjust(wspace=0.2, hspace=1.3, left=0.07, right=0.93)
+# fig, axs = plt.subplots(nrows=5, ncols=3, figsize=(10, 10), constrained_layout=True)
+# # fig.subplots_adjust(wspace=0.2, hspace=1.3, left=0.07, right=0.93)
 
-for ax, (title, dependency) in zip(axs[0], QUADRU_DOUBLET_APPROX.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# for ax, (title, dependency) in zip(axs[0], QUADRU_TRIPLET.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
 
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
+#     ax.set_ylabel("X'/Y' (mrad)")
+#     ax.legend()
 
-# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[1], QUADRU_DOUBLET.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# for ax, (title, dependency) in zip(axs[1], QUADRU_DOUBLET_APPROX.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
 
-    ax.set_ylabel("X'/Y' (mrad)")
+#     ax.set_ylabel("X'/Y' (mrad)")
+#     ax.legend()
 
-# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[2], QUADRUPOLE.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
-    ax.scatter(x, y, s=0.5)
+# # fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[2], QUADRU_DOUBLET.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
 
-    ax.set_xlim((-20, 20))
-    ax.set_ylim((-2.2, 2.2))
+#     ax.set_ylabel("X'/Y' (mrad)")
 
-    ax.set_ylabel("X'/Y' (mrad)")
+# # fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[3], QUADRUPOLE.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
+#     ax.scatter(x, y, s=0.5)
+
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
+
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+
+#     ax.set_xlim((-20, 20))
+#     ax.set_ylim((-2.2, 2.2))
+
+#     ax.set_ylabel("X'/Y' (mrad)")
 
 
-# fig, axs = plt.subplots(1, 3, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[3], DIPOLEMAG.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# # fig, axs = plt.subplots(1, 3, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[4], DIPOLEMAG.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
 
-    ax.set_xlim((-10, 10))
-    ax.set_ylim((-2, 2))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
+#     ax.set_xlim((-10, 10))
+#     ax.set_ylim((-2, 2))
+#     ax.set_xlabel('X/Y (mm)')
+#     ax.set_ylabel("X'/Y' (mrad)")
 
-fig.savefig('pics/beams1.png', bbox_inches='tight', dpi=100)
+# fig.savefig('pics/beams1.png', bbox_inches='tight', dpi=100)
 
-fig, axs = plt.subplots(nrows=4, ncols=2, figsize=(10, 10), constrained_layout=True)
-# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[0], EINZEL.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# fig, axs = plt.subplots(nrows=4, ncols=2, figsize=(10, 10), constrained_layout=True)
+# # fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[0], EINZEL.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, label=r'$\epsilon_{rms}=68.3\%$', edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    # ax.set_aspect('auto')
-    ax.set_xlim((-5, 5))
-    ax.set_ylim((-15, 15))
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+#     # ax.set_aspect('auto')
+#     ax.set_xlim((-5, 5))
+#     ax.set_ylim((-15, 15))
 
-    ax.set_ylabel("X'/Y' (mrad)")
-    ax.legend()
+#     ax.set_ylabel("X'/Y' (mrad)")
+#     ax.legend()
 
-# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[1], LENSDRIFT.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# # fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[1], LENSDRIFT.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    # ax.set_aspect('auto')
-    ax.set_xlim((-10, 10))
-    ax.set_ylim((-20, 20))
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+#     # ax.set_aspect('auto')
+#     ax.set_xlim((-10, 10))
+#     ax.set_ylim((-20, 20))
 
-    ax.set_ylabel("X'/Y' (mrad)")
+#     ax.set_ylabel("X'/Y' (mrad)")
 
-# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[2], LENS.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale)
-    ax.scatter(x, y, s=0.5)
+# # fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[2], LENS.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale)
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
 
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    # ax.set_aspect('auto')
-    ax.set_xlim((-10, 10))
-    ax.set_ylim((-20, 20))
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+#     # ax.set_aspect('auto')
+#     ax.set_xlim((-10, 10))
+#     ax.set_ylim((-20, 20))
 
-    ax.set_ylabel("X'/Y' (mrad)")
+#     ax.set_ylabel("X'/Y' (mrad)")
 
-# fig, axs = plt.subplots(1, 2, figsize=(10, 10))
-for ax, (title, dependency) in zip(axs[3], DRIFT.items()):
-    x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
-    ax.scatter(x, y, s=0.5)
+# # fig, axs = plt.subplots(1, 2, figsize=(10, 10))
+# for ax, (title, dependency) in zip(axs[3], DRIFT.items()):
+#     x, y = get_correlated_dataset(5000, dependency, mu, scale, label='Dataset')
+#     ax.scatter(x, y, s=0.5)
 
-    ax.axvline(c='grey', lw=1)
-    ax.axhline(c='grey', lw=1)
-    ax.hexbin(x, y, gridsize=150, cmap='inferno')
-    confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+#     ax.axvline(c='grey', lw=1)
+#     ax.axhline(c='grey', lw=1)
+#     ax.hexbin(x, y, gridsize=150, cmap='inferno')
+#     confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
 
-    ax.scatter(mu[0], mu[1], c='red', s=3)
-    ax.set_title(title)
-    # ax.set_aspect('auto')
-    ax.set_xlim((-7.5, 7.5))
-    ax.set_ylim((-2, 2))
-    ax.set_xlabel('X/Y (mm)')
-    ax.set_ylabel("X'/Y' (mrad)")
+#     ax.scatter(mu[0], mu[1], c='red', s=3)
+#     ax.set_title(title)
+#     # ax.set_aspect('auto')
+#     ax.set_xlim((-7.5, 7.5))
+#     ax.set_ylim((-2, 2))
+#     ax.set_xlabel('X/Y (mm)')
+#     ax.set_ylabel("X'/Y' (mrad)")
 
-fig.savefig('pics/beams2.png', bbox_inches='tight', dpi=100)
+# fig.savefig('pics/beams2.png', bbox_inches='tight', dpi=100)
 
-plt.show()
+# plt.show()
 
 
 ###############################################################################
@@ -362,7 +388,7 @@ plt.show()
 
 fig, ax_nstd = plt.subplots(figsize=(10, 10), constrained_layout=True)
 
-dependency_nstd = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+dependency_nstd = sigma_matrices.Quadru_doubletMP_approx(parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)
 
 mu = parameters.mu
 scale = parameters.scale
@@ -374,7 +400,7 @@ ax_nstd.axhline(c='grey', lw=1)
 x, y = get_correlated_dataset(100000, dependency_nstd, mu, scale, label='Dataset')
 ax_nstd.scatter(x, y, s=0.5)
 
-ax_nstd.hexbin(x, y, gridsize=200, cmap='inferno')
+ax_nstd.hexbin(x, y, gridsize=500, cmap='inferno')
 
 '''
 https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/
@@ -385,17 +411,20 @@ https://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
 '''
 confidence_ellipse(x, y, ax_nstd, n_std=2.2977,
                    label=r'$\epsilon_{rms}=68.3\%$', edgecolor='firebrick', linewidth=2)
-confidence_ellipse(x, y, ax_nstd, n_std=4.6051,
-                   label=r'$2.\epsilon_{rms}=90\%$', edgecolor='firebrick', linestyle='--', linewidth=2)
-confidence_ellipse(x, y, ax_nstd, n_std=6.2021,
-                   label=r'$4.\epsilon_{rms}=95.5\%$', edgecolor='firebrick', linestyle=':', linewidth=2)
+# confidence_ellipse(x, y, ax_nstd, n_std=4.6051,
+#                    label=r'$2.\epsilon_{rms}=90\%$', edgecolor='firebrick', linestyle='--', linewidth=2)
+# confidence_ellipse(x, y, ax_nstd, n_std=6.2021,
+#                    label=r'$4.\epsilon_{rms}=95.5\%$', edgecolor='firebrick', linestyle=':', linewidth=2)
 
 ax_nstd.scatter(mu[0], mu[1], c='red', s=3)
-ax_nstd.set_title('Different standard deviations for a drift')
+ax_nstd.set_title('Defocusin and focusing electrostatic quadrupole doublet approximation')
+
+ax_nstd.set_xlim((-7.5, 7.5))
+ax_nstd.set_ylim((-3, 3))
 ax_nstd.set_xlabel('X/Y (mm)')
 ax_nstd.set_ylabel("X'/Y' (mrad)")
 ax_nstd.legend()
-fig.savefig('pics/drift.png', bbox_inches='tight', dpi=100)
+# fig.savefig('pics/doublet_approxMP.png', bbox_inches='tight', dpi=100)
 plt.show()
 
 
@@ -408,30 +437,30 @@ plt.show()
 # to have the ellipse rendered in different ways.
 
 
-fig, ax_kwargs = plt.subplots(figsize=(10, 10), constrained_layout=True)
-dependency_kwargs = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
+# fig, ax_kwargs = plt.subplots(figsize=(10, 10), constrained_layout=True)
+# dependency_kwargs = sigma_matrices.Drift(parameters.drift_L, parameters.drift_alpha, parameters.drift_beta, parameters.drift_gamma, parameters.epsilon)
 
-mu = parameters.mu
-scale = parameters.scale
+# mu = parameters.mu
+# scale = parameters.scale
 
-ax_kwargs.axvline(c='grey', lw=1)
-ax_kwargs.axhline(c='grey', lw=1)
+# ax_kwargs.axvline(c='grey', lw=1)
+# ax_kwargs.axhline(c='grey', lw=1)
 
-x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
-# Plot the ellipse with zorder=0 in order to demonstrate
-# its transparency (caused by the use of alpha).
-confidence_ellipse(x, y, ax_kwargs, n_std=2.2977,
-                   alpha=0.5, label=r'$\epsilon_{rms}=68.3\%$', facecolor='pink', edgecolor='pink', zorder=0)
+# x, y = get_correlated_dataset(2000, dependency_kwargs, mu, scale)
+# # Plot the ellipse with zorder=0 in order to demonstrate
+# # its transparency (caused by the use of alpha).
+# confidence_ellipse(x, y, ax_kwargs, n_std=2.2977,
+#                    alpha=0.5, label=r'$\epsilon_{rms}=68.3\%$', facecolor='pink', edgecolor='pink', zorder=0)
 
-ax_kwargs.scatter(x, y, s=0.5)
-ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
-ax_kwargs.set_title(f'Drift')
+# ax_kwargs.scatter(x, y, s=0.5)
+# ax_kwargs.scatter(mu[0], mu[1], c='red', s=3)
+# ax_kwargs.set_title(f'Drift')
 
-ax_kwargs.set_xlabel('X/Y (mm)')
-ax_kwargs.set_ylabel("X'/Y' (mrad)")
-ax_kwargs.legend()
-fig.subplots_adjust(hspace=0.25)
+# ax_kwargs.set_xlabel('X/Y (mm)')
+# ax_kwargs.set_ylabel("X'/Y' (mrad)")
+# ax_kwargs.legend()
+# fig.subplots_adjust(hspace=0.25)
 
-fig.savefig('pics/drift2.png', bbox_inches='tight', dpi=100)
+# fig.savefig('pics/drift2.png', bbox_inches='tight', dpi=100)
 
-plt.show()
+# plt.show()

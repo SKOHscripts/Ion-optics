@@ -13,6 +13,7 @@ from matplotlib.patches import Rectangle
 import parameters
 import parameters_calculation
 import sigma_matrices
+import confidence_ellipse
 
 
 def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
@@ -64,7 +65,7 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     alpha3 = [100]
     for i in range(len(to_check)):
         f3 = parameters_calculation.f(L3, to_check[i], parameters.findingf_V, parameters.findingf_R)
-        alpha3.append(sigma_matrices.Einzel(L1, f3, L1, alpha2[min2], b, g, eps)[0][1])
+        alpha3.append(sigma_matrices.Einzel(L3, f3, L3, alpha2[min2], b, g, eps)[0][1])
 
     for i in range(len(alpha3)):
         if abs(alpha3[i]) == np.amin([abs(ele) for ele in alpha3]):
@@ -83,7 +84,7 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     alpha4 = [100]
     for i in range(len(to_check)):
         f4 = parameters_calculation.f(L4, to_check[i], parameters.findingf_V, parameters.findingf_R)
-        alpha4.append(sigma_matrices.Einzel(L1, f4, L1, alpha3[min3], b, g, eps)[0][1])
+        alpha4.append(sigma_matrices.Einzel(L4, f4, L4, alpha3[min3], b, g, eps)[0][1])
 
     for i in range(len(alpha4)):
         if abs(alpha4[i]) == np.amin([abs(ele) for ele in alpha4]):
@@ -98,13 +99,13 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     ###########################################################################
     # Ploting the result
     #
-    fig, ax = plt.subplots(1, 1, figsize=(12, 14))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
 
     x = [parameters.findingf_L1, parameters.findingf_L1 + parameters.findingf_L2, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4]
 
     plt.plot(x, F, 'o')
 
-    plt.suptitle('Focal lengths for each lens', fontsize=20)
+    # plt.suptitle('Focal lengths for each lens', fontsize=10)
 
     ax.set_xlim(-0.2, 3.5)
     ax.set_ylim(-np.amax([abs(ele) for ele in F]) - 0.2, np.amax([abs(ele) for ele in F]) + 0.2)
@@ -137,7 +138,9 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
 
     # ax.axvline(x=parameters.findingf_L1, c='k', lw=1)
     # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2, c='k', lw=1)
-    ax.axvline(x=0, c='k', lw=2)
+    ax.axvline(x=0, c='red', lw=2)
+    ax.axvline(x=1.7, c='red', lw=2)
+    ax.axvline(x=3.4, c='red', lw=2)
     # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3, c='k', lw=1)
     # ax.axvline(x=parameters.findingf_L1 + parameters.findingf_L2 + parameters.findingf_L3 + parameters.findingf_L4, c='k', lw=1)
 
@@ -149,7 +152,41 @@ def find_f(L1, L2, L3, L4, a, b, g, eps, V, R):
     fig.savefig('pics/finding_f.png', bbox_inches='tight', dpi=100)
     plt.show()
 
-    return F
+    ####################################################################
+    # Visualisation
+
+    print(alpha1[min1], alpha2[min2], alpha3[min3])
+
+    ELLIPSES = {
+
+        'Input signal': sigma_matrices.Input(parameters.findingf_alpha, parameters.findingf_beta, parameters_calculation.gamma(parameters.findingf_alpha, parameters.findingf_beta, parameters.findingf_eps), parameters.findingf_eps),
+
+        'In the center': sigma_matrices.Einzel(L2, parameters_calculation.f(L2, to_check[min2], parameters.findingf_V, parameters.findingf_R), L2, alpha1[min1], b, g, eps),
+
+        'After fourth lens': sigma_matrices.Einzel(L4, parameters_calculation.f(L4, to_check[min4], parameters.findingf_V, parameters.findingf_R), L4, alpha3[min3], b, g, eps),
+
+    }
+
+    fig, axs = plt.subplots(1, 3, figsize=(18, 18))
+    for ax, (title, dependency) in zip(axs, ELLIPSES.items()):
+        x, y = confidence_ellipse.get_correlated_dataset(100000, dependency, parameters.mu, parameters.scale, label='Dataset')
+        ax.scatter(x, y, s=0.5)
+
+        ax.axvline(c='grey', lw=1)
+        ax.axhline(c='grey', lw=1)
+        ax.hexbin(x, y, gridsize=300, cmap='inferno')
+        confidence_ellipse.confidence_ellipse(x, y, ax, edgecolor='red', linewidth=2)
+
+        ax.scatter(parameters.mu[0], parameters.mu[1], c='red', s=3)
+        ax.set_title(title)
+        ax.set_xlim((-3, 3))
+        ax.set_ylim((-1, 1))
+        ax.set_xlabel('X/Y (mm)')
+        ax.set_ylabel("X'/Y' (mrad)")
+
+    fig.savefig('pics/finding_f_beams.png', dpi=100)
+
+    plt.show()
 
 
 find_f(parameters.findingf_L1, parameters.findingf_L2, parameters.findingf_L3, parameters.findingf_L4, parameters.findingf_alpha, parameters.findingf_beta, parameters_calculation.gamma(parameters.findingf_alpha, parameters.findingf_beta, parameters.findingf_eps), parameters.findingf_eps, parameters.findingf_V, parameters.findingf_R)

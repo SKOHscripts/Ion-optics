@@ -34,3 +34,6 @@ In this part I'm going to simulate a double quadruple pole (approximated by a le
 In this part I will simulate a tunnel of 3.4 m in which 4 Einzel lenses are placed. The goal is to find the focal lengths of these lenses which allow to have a beam as parallel as possible at the exit. 
 
 ![Finding focal lengths](pics/finding_f.png)
+![Finding focal lengths](pics/finding_f_beams.png)
+
+For more informations, please contact me.

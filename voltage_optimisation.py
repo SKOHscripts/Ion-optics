@@ -29,7 +29,6 @@ ax = fig.gca(projection='3d')
 # X and Y
 #
 
-precision = []
 for i in range(10, parameters.optim_nb_points):
     x = np.linspace(parameters.optim_min, parameters.optim_max, i)
     y = np.linspace(parameters.optim_min, parameters.optim_max, i)
@@ -45,6 +44,12 @@ for i in range(10, parameters.optim_nb_points):
 
     z = zx * zy
 
+    # zx = abs(sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, x, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, y, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)[0][1])
+
+    # zy = abs(sigma_matrices.Quadru_doubletMP_approx(parameters_calculation.f(parameters.quadru_L, x, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, y, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon)[0][1])
+
+    # z = zx * zy
+    # print(z)
     ###############################################################################
     # Axes parameters
     #
@@ -66,9 +71,9 @@ for i in range(10, parameters.optim_nb_points):
     ax.set_yticks(grid_y_ticks, minor=True)
 
     zmin = np.where(z == np.amin(z))
+    print("zmin=", zmin)
     xmin = x[zmin][0]
     ymin = y[zmin][0]
-    precision.append(xmin)
     print(f'{xmin:.2f} ({i}/{parameters.optim_nb_points})')
 
 
@@ -87,14 +92,7 @@ surf = ax.plot_surface(x, y, z, alpha=0.6, cmap=cm.gist_earth, antialiased=True)
 cbar = fig.colorbar(surf, cmap=cm.gist_earth)
 cbar.set_label('For x and y plans together')
 
-fig.savefig('pics/optimisation.png', bbox_inches='tight', dpi=100)
-
-xpre = precision
-plt.subplots()
-print(xpre)
-print(len(xpre))
-plt.plot(xpre)
-plt.suptitle('Precision', fontsize=20)
+# fig.savefig('pics/optimisation.png', bbox_inches='tight', dpi=100)
 
 
 plt.show()

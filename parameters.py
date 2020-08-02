@@ -109,11 +109,32 @@ doublet_beta = input_beta
 doublet_gamma = parameters_calculation.gamma(doublet_alpha, doublet_beta, epsilon)
 doublet_k1 = sqrt(parameters_calculation.k(V0, V, R))
 doublet_k2 = sqrt(parameters_calculation.k(V0, V, R))
+
+#############################################################################
+#
+# Triplet parameters
+#
+
+V0 = 900
+V = 20000
+R = 0.035
+triplet_Lq1 = 0.100
+triplet_Lq2 = 0.100
+triplet_Lq3 = 0.100
+triplet_Ld1 = 0.040
+triplet_Ld2 = 0.040
+triplet_Ld3 = 0.100
+triplet_alpha = input_alpha
+triplet_beta = input_beta
+triplet_gamma = parameters_calculation.gamma(triplet_alpha, triplet_beta, epsilon)
+triplet_k1 = sqrt(parameters_calculation.k(V0, V, R))
+triplet_k2 = sqrt(parameters_calculation.k(V0, V, R))
+triplet_k3 = sqrt(parameters_calculation.k(V0, V, R))
 #############################################################################
 #
 # Voltage optimisation
 #
-optim_nb_points = 2000
+optim_nb_points = 500
 optim_min = 0
 optim_max = 2000
 optim_V = 20000
