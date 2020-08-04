@@ -177,9 +177,9 @@ QUADRU_DOUBLET_APPROX = {
 
     'Input signal': sigma_matrices.Input(parameters.doublet_alpha, parameters.doublet_beta, parameters.doublet_gamma, parameters.epsilon),
 
-    'Doublet approximation for x plan': sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+    'Doublet approximation for x plan': sigma_matrices.Quadru_doubletPM_approx(parameters_calculation.f(parameters.quadru_L, 900, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 900, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
 
-    'Doublet approximation for y plan': sigma_matrices.Quadru_doubletMP_approx(parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 50, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
+    'Doublet approximation for y plan': sigma_matrices.Quadru_doubletMP_approx(parameters_calculation.f(parameters.quadru_L, 900, 20000, 0.035), parameters_calculation.f(parameters.quadru_L, 900, 20000, 0.035), parameters.quadru_L, parameters.quadru_drift_L, parameters.quadru_alpha, parameters.quadru_beta, parameters.quadru_gamma, parameters.epsilon),
 
 }
 
