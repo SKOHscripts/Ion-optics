@@ -1,6 +1,7 @@
 # Ion optics
 
 ![Creative Commons](cc.png)
+
 Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
 
 ### Optimization of Twiss parameters to influence the emissivity of an ion beam
