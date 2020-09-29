@@ -1,5 +1,8 @@
 # Ion optics
 
+![Creative Commons](cc.png)
+Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+
 ### Optimization of Twiss parameters to influence the emissivity of an ion beam
 
 Programs developed during an internship in ion optics to discover the notion of emissivity, Twiss parameters and "sigma" matrices for ion beams passing through different optical systems (drift, thin lens, Einzel lens, magnetic dipole, electrostatic quadrupole).
