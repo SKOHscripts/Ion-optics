@@ -422,7 +422,7 @@ ax_nstd.set_ylim((-1.2, 1.2))
 ax_nstd.set_xlabel('X/Y (mm)')
 ax_nstd.set_ylabel("X'/Y' (mrad)")
 ax_nstd.legend([extra, c1, c2, c3], ('Ion beam at the exit of an electrostatic quadrupole', r'$\epsilon_{rms}=68.3\%$', r'$2.\epsilon_{rms}=90\%$', r'$4.\epsilon_{rms}=95.5\%$'), loc='upper right')
-# fig.savefig('pics/doublet_approxMP.png', bbox_inches='tight', dpi=100)
+fig.savefig('pics/ellipse_quadrupole.png', bbox_inches='tight', dpi=100)
 plt.show()
 
 
