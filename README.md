@@ -20,10 +20,7 @@ In order to visualize them, you just have to compile the file **confidence_ellip
 
 ### Visualization of beam ellipses at the output of the different optical elements.
 
-![Drift visualization](pics/beams2.png)
-![Drift visualization](pics/beams1.png)
-![Drift visualization](pics/drift.png)
-![Drift visualization](pics/drift2.png)
+(See PDF report)
 
 * * *
 
